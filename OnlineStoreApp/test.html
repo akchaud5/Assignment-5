@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page - OnlineStoreApp</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .test-panel { border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        h1, h2 { color: #333; }
+        .btn { padding: 8px 12px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        .btn:hover { background-color: #45a049; }
+        input { padding: 8px; margin-bottom: 10px; }
+        .result { margin-top: 15px; padding: 10px; background-color: #f5f5f5; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OnlineStoreApp Component Test Page</h1>
+        <p>This page helps verify the components of the OnlineStoreApp application without requiring a full ASP.NET environment.</p>
+        
+        <div class="test-panel">
+            <h2>Password Hashing Test</h2>
+            <p>This component would normally use the SecurityLib.PasswordHasher class to hash passwords securely.</p>
+            <p>Password: <input type="text" id="password" value="Cse445!"></p>
+            <button class="btn" onclick="simulateHashing()">Hash Password</button>
+            <div class="result" id="hashResult"></div>
+        </div>
+        
+        <div class="test-panel">
+            <h2>Discount Calculation Test</h2>
+            <p>This component would normally use the DiscountService to calculate discounts based on price and quantity.</p>
+            <p>Price: <input type="number" id="price" value="100.00" step="0.01"></p>
+            <p>Quantity: <input type="number" id="quantity" value="5"></p>
+            <button class="btn" onclick="simulateDiscountCalculation()">Calculate Discount</button>
+            <div class="result" id="discountResult"></div>
+        </div>
+        
+        <div class="test-panel">
+            <h2>CAPTCHA Simulation</h2>
+            <p>This component would normally use the CaptchaControl to verify human users.</p>
+            <p>Enter captcha text: <input type="text" id="captchaInput"></p>
+            <p>Simulated captcha: <strong>ABC123</strong></p>
+            <button class="btn" onclick="simulateCaptchaVerification()">Verify Captcha</button>
+            <div class="result" id="captchaResult"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate password hashing
+        function simulateHashing() {
+            const password = document.getElementById('password').value;
+            
+            // This is just a simple hash simulation for display purposes
+            // In the real app, we'd use the SecurityLib.PasswordHasher
+            const simulatedHash = simpleHash(password);
+            
+            document.getElementById('hashResult').innerHTML = 
+                `<p>Original password: ${password}</p>
+                 <p>Hashed value: ${simulatedHash}</p>
+                 <p><strong>Note:</strong> This is a simplified hash for demonstration. 
+                 The actual application uses SHA-256 hashing.</p>`;
+        }
+        
+        // Simple hashing function for demo purposes
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash.toString(16);
+        }
+        
+        // Simulate discount calculation
+        function simulateDiscountCalculation() {
+            const price = parseFloat(document.getElementById('price').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            // This mimics the logic in the DiscountService class
+            let discount = 0;
+            
+            // Quantity-based discount
+            if (quantity >= 10) {
+                discount += price * quantity * 0.15;  // 15% discount for 10+ items
+            } else if (quantity >= 5) {
+                discount += price * quantity * 0.10;  // 10% discount for 5-9 items
+            } else if (quantity >= 3) {
+                discount += price * quantity * 0.05;  // 5% discount for 3-4 items
+            }
+            
+            // Price-based discount
+            if (price * quantity >= 1000) {
+                discount += 50;  // Additional $50 off for orders over $1000
+            } else if (price * quantity >= 500) {
+                discount += 25;  // Additional $25 off for orders over $500
+            }
+            
+            const total = price * quantity;
+            const finalPrice = total - discount;
+            
+            document.getElementById('discountResult').innerHTML = 
+                `<p>Price: $${price.toFixed(2)}</p>
+                 <p>Quantity: ${quantity}</p>
+                 <p>Total before discount: $${total.toFixed(2)}</p>
+                 <p>Discount amount: $${discount.toFixed(2)}</p>
+                 <p>Final price: $${finalPrice.toFixed(2)}</p>`;
+        }
+        
+        // Simulate CAPTCHA verification
+        function simulateCaptchaVerification() {
+            const userInput = document.getElementById('captchaInput').value.toUpperCase();
+            const expectedCaptcha = 'ABC123';
+            
+            const isValid = userInput === expectedCaptcha;
+            
+            document.getElementById('captchaResult').innerHTML = 
+                isValid 
+                ? '<p style="color: green;">CAPTCHA verification successful!</p>' 
+                : '<p style="color: red;">CAPTCHA verification failed. Please try again.</p>';
+        }
+    </script>
+</body>
+</html>

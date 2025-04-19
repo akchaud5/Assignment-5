@@ -1,49 +1,50 @@
-# Simple Online Store - ASP.NET Web Application
+# Online Store App - ASP.NET Web Application
 
-This application demonstrates a service-oriented web application for an online store, meeting the requirements for CSE 445/598 Assignment 5 and 6.
+## Testing the Application
 
-## Application Structure
+### Option 1: Using Visual Studio on Windows
+If you have Visual Studio installed on a Windows machine:
+1. Open the `OnlineStoreApp.sln` solution file in Visual Studio
+2. Press F5 to build and run the application
+3. The application should open in your default web browser
 
-### Presentation Layer (GUI)
+### Option 2: Using IIS Express on Windows
+1. Install IIS Express
+2. Navigate to the project folder in Command Prompt
+3. Run: `"C:\Program Files\IIS Express\iisexpress.exe" /path:full-path-to-project /port:8080`
+4. Open your browser and navigate to `http://localhost:8080/Default.aspx`
+
+### Option 3: Simple Testing on macOS
+Since ASP.NET Web Forms is not directly supported on macOS, you can test individual components:
+
+1. Open terminal and navigate to the project folder
+2. Run a simple HTTP server to view the test page:
+   ```
+   cd /Users/akchaud5/Downloads/Assignment-5/OnlineStoreApp
+   python3 -m http.server 8080
+   ```
+3. Open your browser and navigate to `http://localhost:8080/test.html`
+4. This page simulates core components of the application
+
+## Component Overview
+
+### Web Pages
 - **Default.aspx**: Public page with product catalog and service directory
-- **Pages/Member.aspx**: Member-only page with shopping cart functionality (requires authentication)
-- **Pages/Staff.aspx**: Staff-only page with product and user management (requires authentication)
-- **Pages/Login.aspx**: Authentication page for both members and staff
+- **Pages/Member.aspx**: Member-only page with shopping cart functionality
+- **Pages/Staff.aspx**: Staff administration page
+- **Pages/Login.aspx**: Authentication page
 
-### Local Component Layer
-- **Global.asax**: Contains event handlers for application and session events
-- **Controls/CaptchaControl.ascx**: User control for CAPTCHA verification
-- **App_Code/SecurityLib/PasswordHasher.cs**: DLL class library for password hashing
-- **Cookies**: Used for storing user role information
-- **Session State**: Used for shopping cart and user state management
-
-### Remote Service Layer
+### Core Components
+- **SecurityLib/PasswordHasher.cs**: Password hashing functionality
+- **Controls/CaptchaControl.ascx**: CAPTCHA validation control
 - **Services/DiscountService.svc**: Web service for calculating discounts
+- **Global.asax**: Application and session event handlers
 
-### Data Management Layer
-- **App_Data/Members.xml**: XML storage for member accounts
-- **App_Data/Staff.xml**: XML storage for staff accounts
-- **App_Data/Products.xml**: XML storage for product information
+### Data Storage
+The application uses XML files for data storage:
+- **App_Data/Members.xml**: Member account information
+- **App_Data/Staff.xml**: Staff account information
+- **App_Data/Products.xml**: Product catalog data
 
-## Security Implementation
-
-- Forms Authentication is used for user authentication
-- Passwords are securely hashed using SHA-256
-- Role-based authorization using cookies
-- CAPTCHA verification for new user registration
-
-## Testing
-
-- **Member Access**: Register a new account on the Login page
-- **Staff Access**: Use username "TA" and password "Cse445!" for testing
-- **Service Testing**: Use the "Try It" buttons on the Default page
-
-## Components by Provider
-
-| Provider | Component Type | Description |
-|----------|---------------|-------------|
-| Your Name | WSDL Service | Discount calculation service |
-| Your Name | DLL Function | Password hashing functionality |
-| Your Name | User Control | CAPTCHA verification |
-| Your Name | Global.asax | Application and session event handlers |
-| Your Name | Cookie/Session | User role and cart management |
+## Test Credentials
+- **Staff Login**: Username: "TA", Password: "Cse445!"
