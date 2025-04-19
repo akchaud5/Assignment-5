@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Xml;
 using System.IO;
-using OnlineStoreApp.App_Code;
+using SecurityLib;
 
 public partial class Pages_Staff : Page
 {

@@ -1,1 +1,1 @@
-<%@ ServiceHost Language="C#" Debug="true" Service="DiscountService" CodeBehind="~/App_Code/DiscountService.cs" %>
+<%@ ServiceHost Language="C#" Debug="true" Service="OnlineStoreApp.Services.DiscountService" CodeBehind="~/App_Code/DiscountService.cs" %>

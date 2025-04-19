@@ -5,7 +5,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
-using OnlineStoreApp.App_Code;
+using OnlineStoreApp.Services;
 
 public partial class Pages_Member : Page
 {
@@ -223,7 +223,7 @@ public partial class Pages_Member : Page
             int quantity = Convert.ToInt32(txtQuantity.Text);
 
             // Call discount service
-            DiscountService.DiscountServiceClient client = new DiscountService.DiscountServiceClient();
+            OnlineStoreApp.Services.DiscountService client = new OnlineStoreApp.Services.DiscountService();
             decimal discount = client.CalculateDiscount(price, quantity);
 
             // Display result

@@ -1,5 +1,6 @@
 using System;
-using OnlineStoreApp.App_Code;
+using OnlineStoreApp.Services;
+using SecurityLib;
 
 public partial class TryIt : System.Web.UI.Page
 {
@@ -21,7 +22,7 @@ public partial class TryIt : System.Web.UI.Page
             int quantity = Convert.ToInt32(txtQuantity.Text);
 
             // Call discount service
-            DiscountService discountService = new DiscountService();
+            OnlineStoreApp.Services.DiscountService discountService = new OnlineStoreApp.Services.DiscountService();
             decimal discount = discountService.CalculateDiscount(price, quantity);
 
             // Display result

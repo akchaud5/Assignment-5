@@ -3,8 +3,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Xml;
-using OnlineStoreApp.App_Code;
 using System.IO;
+using SecurityLib;
 
 public partial class Pages_Login : Page
 {
