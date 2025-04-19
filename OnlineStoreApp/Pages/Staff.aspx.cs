@@ -211,7 +211,7 @@ namespace OnlineStoreApp.Pages
             doc.Load(physicalPath);
 
             // Check if username already exists
-            XmlNode existingStaff = doc.SelectSingleNode($"//Staff[Username='{username}']");
+            XmlNode existingStaff = doc.SelectSingleNode("//Staff[Username='" + username + "']");
             if (existingStaff != null)
             {
                 lblStaffMessage.Text = "Username already exists. Please choose another.";

@@ -238,7 +238,7 @@ namespace OnlineStoreApp.Pages
             XmlDocument doc = new XmlDocument();
             doc.Load(physicalPath);
 
-            XmlNode existingUser = doc.SelectSingleNode($"//Member[Username='{username}']");
+            XmlNode existingUser = doc.SelectSingleNode("//Member[Username='" + username + "']");
 
             return existingUser != null;
         }
