@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Products>
+  <Product>
+    <Id>1</Id>
+    <Name>Laptop</Name>
+    <Price>999.99</Price>
+    <Category>Electronics</Category>
+  </Product>
+  <Product>
+    <Id>2</Id>
+    <Name>Smartphone</Name>
+    <Price>699.99</Price>
+    <Category>Electronics</Category>
+  </Product>
+  <Product>
+    <Id>3</Id>
+    <Name>Headphones</Name>
+    <Price>149.99</Price>
+    <Category>Accessories</Category>
+  </Product>
+  <Product>
+    <Id>4</Id>
+    <Name>Desk Chair</Name>
+    <Price>249.99</Price>
+    <Category>Furniture</Category>
+  </Product>
+  <Product>
+    <Id>5</Id>
+    <Name>Coffee Maker</Name>
+    <Price>79.99</Price>
+    <Category>Appliances</Category>
+  </Product>
+</Products>

@@ -1,0 +1,106 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TryIt.aspx.cs" Inherits="TryIt" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>TryIt Page - Simple Online Store</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { background-color: #f5f5f5; padding: 10px; margin-bottom: 20px; }
+        .panel { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 8px; box-sizing: border-box; }
+        .btn { padding: 8px 12px; margin-right: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        .btn:hover { background-color: #45a049; }
+        .result { margin-top: 15px; padding: 10px; background-color: #f9f9f9; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container">
+            <div class="header">
+                <h1>Service Testing Page</h1>
+                <a href="Default.aspx">Back to Home</a>
+            </div>
+
+            <h2>Available Services</h2>
+
+            <div class="panel">
+                <h3>Discount Service</h3>
+                <p>This service calculates a discount based on the order price and quantity.</p>
+                
+                <div class="form-group">
+                    <label for="txtPrice">Price:</label>
+                    <asp:TextBox ID="txtPrice" runat="server" TextMode="Number" Step="0.01"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvPrice" runat="server" ControlToValidate="txtPrice"
+                        ErrorMessage="Price is required" Display="Dynamic" ForeColor="Red" ValidationGroup="DiscountGroup">
+                    </asp:RequiredFieldValidator>
+                </div>
+                
+                <div class="form-group">
+                    <label for="txtQuantity">Quantity:</label>
+                    <asp:TextBox ID="txtQuantity" runat="server" TextMode="Number"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity"
+                        ErrorMessage="Quantity is required" Display="Dynamic" ForeColor="Red" ValidationGroup="DiscountGroup">
+                    </asp:RequiredFieldValidator>
+                </div>
+                
+                <asp:Button ID="btnCalculateDiscount" runat="server" Text="Calculate Discount" CssClass="btn" 
+                    OnClick="btnCalculateDiscount_Click" ValidationGroup="DiscountGroup" />
+                
+                <div class="result">
+                    <strong>Result:</strong> <asp:Label ID="lblDiscountResult" runat="server"></asp:Label>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Password Hasher</h3>
+                <p>This component securely hashes passwords using SHA-256.</p>
+                
+                <div class="form-group">
+                    <label for="txtPassword">Password:</label>
+                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
+                        ErrorMessage="Password is required" Display="Dynamic" ForeColor="Red" ValidationGroup="HashGroup">
+                    </asp:RequiredFieldValidator>
+                </div>
+                
+                <asp:Button ID="btnHashPassword" runat="server" Text="Hash Password" CssClass="btn" 
+                    OnClick="btnHashPassword_Click" ValidationGroup="HashGroup" />
+                
+                <div class="result">
+                    <strong>Result:</strong> <asp:Label ID="lblHashResult" runat="server"></asp:Label>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>CAPTCHA Control</h3>
+                <p>This user control generates and validates CAPTCHAs for form verification.</p>
+                
+                <div>
+                    <%@ Register Src="~/Controls/CaptchaControl.ascx" TagPrefix="uc" TagName="Captcha" %>
+                    <uc:Captcha runat="server" ID="captchaControl" />
+                </div>
+                
+                <asp:Button ID="btnVerifyCaptcha" runat="server" Text="Verify CAPTCHA" CssClass="btn" 
+                    OnClick="btnVerifyCaptcha_Click" />
+                
+                <div class="result">
+                    <strong>Result:</strong> <asp:Label ID="lblCaptchaResult" runat="server"></asp:Label>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Application State</h3>
+                <p>This component demonstrates the use of Application state for visitor counting.</p>
+                
+                <div class="result">
+                    <strong>Current Visitor Count:</strong> <asp:Label ID="lblVisitorCount" runat="server"></asp:Label>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
