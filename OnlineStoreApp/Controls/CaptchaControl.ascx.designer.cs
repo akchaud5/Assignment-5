@@ -1,6 +1,3 @@
-using System;
-using System.Web.UI;
-
 namespace OnlineStoreApp.Controls
 {
     public partial class Controls_CaptchaControl
