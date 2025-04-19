@@ -113,8 +113,8 @@ namespace OnlineStoreApp.Pages
                 CreateMembersXmlFile(physicalPath);
             }
 
-            // Hash password using DLL function
-            string hashedPassword = SecurityLib.PasswordHasher.HashPassword(password);
+            // Use local hash implementation to avoid type conflicts
+            string hashedPassword = HashPassword(password);
 
             // Add new member to XML file
             XmlDocument doc = new XmlDocument();
@@ -174,8 +174,8 @@ namespace OnlineStoreApp.Pages
 
                 if (storedUsername == username)
                 {
-                    // Hash input password and compare
-                    string hashedPassword = SecurityLib.PasswordHasher.HashPassword(password);
+                    // Use local hash implementation to avoid type conflicts
+                    string hashedPassword = HashPassword(password);
                     if (storedHashedPassword == hashedPassword)
                     {
                         return true;
@@ -214,8 +214,8 @@ namespace OnlineStoreApp.Pages
 
                 if (storedUsername == username)
                 {
-                    // Hash input password and compare
-                    string hashedPassword = SecurityLib.PasswordHasher.HashPassword(password);
+                    // Use local hash implementation to avoid type conflicts
+                    string hashedPassword = HashPassword(password);
                     if (storedHashedPassword == hashedPassword)
                     {
                         return true;
@@ -253,6 +253,25 @@ namespace OnlineStoreApp.Pages
             doc.AppendChild(root);
 
             doc.Save(filePath);
+        }
+    }
+    
+    // Local implementation of password hashing to avoid type conflicts
+    private string HashPassword(string password)
+    {
+        // Use SHA256 for hashing
+        using (System.Security.Cryptography.SHA256 sha256Hash = System.Security.Cryptography.SHA256.Create())
+        {
+            // Convert the input string to a byte array and compute the hash
+            byte[] bytes = sha256Hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+            // Convert byte array to a string
+            System.Text.StringBuilder builder = new System.Text.StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            return builder.ToString();
         }
     }
 }

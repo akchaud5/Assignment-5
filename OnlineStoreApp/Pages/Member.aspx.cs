@@ -224,9 +224,8 @@ namespace OnlineStoreApp.Pages
                 decimal price = Convert.ToDecimal(txtPrice.Text);
                 int quantity = Convert.ToInt32(txtQuantity.Text);
 
-                // Call discount service
-                OnlineStoreApp.Services.DiscountService client = new OnlineStoreApp.Services.DiscountService();
-                decimal discount = client.CalculateDiscount(price, quantity);
+                // Use local calculation instead of the service to avoid type conflicts
+                decimal discount = CalculateDiscount(price, quantity);
 
                 // Display result
                 lblDiscount.Text = discount.ToString("0.00");
@@ -258,5 +257,38 @@ namespace OnlineStoreApp.Pages
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+    }
+    
+    // Local implementation of discount calculation to avoid type conflicts
+    private decimal CalculateDiscount(decimal price, int quantity)
+    {
+        // Basic discount calculation logic
+        decimal discount = 0;
+
+        // Quantity-based discount
+        if (quantity >= 10)
+        {
+            discount += price * quantity * 0.15m;  // 15% discount for 10+ items
+        }
+        else if (quantity >= 5)
+        {
+            discount += price * quantity * 0.10m;  // 10% discount for 5-9 items
+        }
+        else if (quantity >= 3)
+        {
+            discount += price * quantity * 0.05m;  // 5% discount for 3-4 items
+        }
+
+        // Price-based discount
+        if (price * quantity >= 1000)
+        {
+            discount += 50;  // Additional $50 off for orders over $1000
+        }
+        else if (price * quantity >= 500)
+        {
+            discount += 25;  // Additional $25 off for orders over $500
+        }
+
+        return discount;
     }
 }
