@@ -56,9 +56,9 @@
                 <asp:Repeater ID="rptProducts" runat="server" OnItemCommand="rptProducts_ItemCommand">
                     <ItemTemplate>
                         <div class="product-card">
-                            <h3><%# Eval("Name") %></h3>
-                            <p>Price: $<%# Eval("Price", "{0:0.00}") %></p>
-                            <p>Category: <%# Eval("Category") %></p>
+                            <h3><asp:Label ID="lblProductName" runat="server" Text='<%# Eval("Name") %>'></asp:Label></h3>
+                            <p>Price: $<asp:Label ID="lblProductPrice" runat="server" Text='<%# Eval("Price", "{0:0.00}") %>'></asp:Label></p>
+                            <p>Category: <asp:Label ID="lblProductCategory" runat="server" Text='<%# Eval("Category") %>'></asp:Label></p>
                             <asp:Button ID="btnAddToCart" runat="server" Text="Add to Cart" CommandName="AddToCart" CommandArgument='<%# Eval("Id") %>' CssClass="btn" />
                         </div>
                     </ItemTemplate>

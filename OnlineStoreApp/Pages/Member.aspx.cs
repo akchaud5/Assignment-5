@@ -125,10 +125,14 @@ namespace OnlineStoreApp.Pages
                     Button btn = (Button)item.FindControl("btnAddToCart");
                     if (btn != null && btn.CommandArgument == productId.ToString())
                     {
-                        // Get product details from DataBinder
-                        productName = DataBinder.Eval(item.DataItem, "Name").ToString();
-                        productPrice = Convert.ToDecimal(DataBinder.Eval(item.DataItem, "Price"));
-                        productCategory = DataBinder.Eval(item.DataItem, "Category").ToString();
+                        // Get product details from the row directly
+                        Label lblName = (Label)item.FindControl("lblProductName");
+                        Label lblPrice = (Label)item.FindControl("lblProductPrice");
+                        Label lblCategory = (Label)item.FindControl("lblProductCategory");
+                        
+                        if (lblName != null) productName = lblName.Text;
+                        if (lblPrice != null) productPrice = Convert.ToDecimal(lblPrice.Text.Replace("$", ""));
+                        if (lblCategory != null) productCategory = lblCategory.Text;
                         break;
                     }
                 }
