@@ -125,10 +125,10 @@ namespace OnlineStoreApp.Pages
                     Button btn = (Button)item.FindControl("btnAddToCart");
                     if (btn != null && btn.CommandArgument == productId.ToString())
                     {
-                        // Extract product details
-                        productName = ((System.Web.UI.HtmlControls.HtmlGenericControl)item.FindControl("Name")).InnerText;
-                        productPrice = Convert.ToDecimal(((System.Web.UI.HtmlControls.HtmlGenericControl)item.FindControl("Price")).InnerText.Replace("$", ""));
-                        productCategory = ((System.Web.UI.HtmlControls.HtmlGenericControl)item.FindControl("Category")).InnerText;
+                        // Get product details from DataBinder
+                        productName = DataBinder.Eval(item.DataItem, "Name").ToString();
+                        productPrice = Convert.ToDecimal(DataBinder.Eval(item.DataItem, "Price"));
+                        productCategory = DataBinder.Eval(item.DataItem, "Category").ToString();
                         break;
                     }
                 }
@@ -149,8 +149,8 @@ namespace OnlineStoreApp.Pages
                     cart.Add(new CartItem
                     {
                         Id = productId,
-                        Name = "Product " + productId, // Fallback if name not found
-                        Price = GetProductPrice(productId), // Get price from product list
+                        Name = !string.IsNullOrEmpty(productName) ? productName : "Product " + productId,
+                        Price = productPrice > 0 ? productPrice : GetProductPrice(productId),
                         Quantity = 1
                     });
                 }
