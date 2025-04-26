@@ -93,6 +93,71 @@
             </div>
 
             <div class="panel">
+                <h3>Temperature Converter Service</h3>
+                <p>This service converts between Fahrenheit and Celsius.</p>
+                
+                <div class="form-group">
+                    <label for="txtTemperature">Temperature:</label>
+                    <asp:TextBox ID="txtTemperature" runat="server" TextMode="Number" Step="0.01"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvTemperature" runat="server" ControlToValidate="txtTemperature"
+                        ErrorMessage="Temperature is required" Display="Dynamic" ForeColor="Red" ValidationGroup="TempGroup">
+                    </asp:RequiredFieldValidator>
+                </div>
+                
+                <div class="form-group">
+                    <asp:RadioButton ID="rbFtoC" runat="server" GroupName="TempConversion" Text="Fahrenheit to Celsius" Checked="true" />
+                    <asp:RadioButton ID="rbCtoF" runat="server" GroupName="TempConversion" Text="Celsius to Fahrenheit" />
+                </div>
+                
+                <asp:Button ID="btnConvertTemp" runat="server" Text="Convert" CssClass="btn" 
+                    OnClick="btnConvertTemp_Click" ValidationGroup="TempGroup" />
+                
+                <div class="result">
+                    <strong>Result:</strong> <asp:Label ID="lblTempResult" runat="server"></asp:Label>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Currency Converter Service</h3>
+                <p>This service converts between different currencies.</p>
+                
+                <div class="form-group">
+                    <label for="txtAmount">Amount:</label>
+                    <asp:TextBox ID="txtAmount" runat="server" TextMode="Number" Step="0.01"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount"
+                        ErrorMessage="Amount is required" Display="Dynamic" ForeColor="Red" ValidationGroup="CurrencyGroup">
+                    </asp:RequiredFieldValidator>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ddlFromCurrency">From Currency:</label>
+                    <asp:DropDownList ID="ddlFromCurrency" runat="server">
+                        <asp:ListItem Text="USD - US Dollar" Value="USD" Selected="True"></asp:ListItem>
+                        <asp:ListItem Text="EUR - Euro" Value="EUR"></asp:ListItem>
+                        <asp:ListItem Text="GBP - British Pound" Value="GBP"></asp:ListItem>
+                        <asp:ListItem Text="JPY - Japanese Yen" Value="JPY"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ddlToCurrency">To Currency:</label>
+                    <asp:DropDownList ID="ddlToCurrency" runat="server">
+                        <asp:ListItem Text="USD - US Dollar" Value="USD"></asp:ListItem>
+                        <asp:ListItem Text="EUR - Euro" Value="EUR" Selected="True"></asp:ListItem>
+                        <asp:ListItem Text="GBP - British Pound" Value="GBP"></asp:ListItem>
+                        <asp:ListItem Text="JPY - Japanese Yen" Value="JPY"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                
+                <asp:Button ID="btnConvertCurrency" runat="server" Text="Convert" CssClass="btn" 
+                    OnClick="btnConvertCurrency_Click" ValidationGroup="CurrencyGroup" />
+                
+                <div class="result">
+                    <strong>Result:</strong> <asp:Label ID="lblCurrencyResult" runat="server"></asp:Label>
+                </div>
+            </div>
+
+            <div class="panel">
                 <h3>Application State</h3>
                 <p>This component demonstrates the use of Application state for visitor counting.</p>
                 

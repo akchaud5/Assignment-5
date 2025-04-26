@@ -87,6 +87,24 @@
                 </tr>
                 <tr>
                     <td>Your Name</td>
+                    <td>WSDL Service</td>
+                    <td>TemperatureService</td>
+                    <td>temperature (double)</td>
+                    <td>double</td>
+                    <td>Converts between Fahrenheit and Celsius</td>
+                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                </tr>
+                <tr>
+                    <td>Your Name</td>
+                    <td>WSDL Service</td>
+                    <td>CurrencyService</td>
+                    <td>amount (double), fromCurrency (string), toCurrency (string)</td>
+                    <td>double</td>
+                    <td>Converts between different currencies</td>
+                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                </tr>
+                <tr>
+                    <td>Your Name</td>
                     <td>DLL Function</td>
                     <td>HashPassword</td>
                     <td>password (string)</td>
