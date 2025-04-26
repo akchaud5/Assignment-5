@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using OnlineStoreApp.Services;
+using System.Xml;
+using System.IO;
 
 namespace OnlineStoreApp.Pages
 {

@@ -73,6 +73,66 @@ namespace OnlineStoreApp
         protected global::System.Web.UI.WebControls.Label lblCaptchaResult;
 
         /// <summary>
+        /// txtTemperature control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox txtTemperature;
+
+        /// <summary>
+        /// rfvTemperature control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTemperature;
+
+        /// <summary>
+        /// rbFtoC control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RadioButton rbFtoC;
+
+        /// <summary>
+        /// rbCtoF control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RadioButton rbCtoF;
+
+        /// <summary>
+        /// btnConvertTemp control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button btnConvertTemp;
+
+        /// <summary>
+        /// lblTempResult control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblTempResult;
+
+        /// <summary>
+        /// txtAmount control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox txtAmount;
+
+        /// <summary>
+        /// rfvAmount control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAmount;
+
+        /// <summary>
+        /// ddlFromCurrency control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFromCurrency;
+
+        /// <summary>
+        /// ddlToCurrency control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList ddlToCurrency;
+
+        /// <summary>
+        /// btnConvertCurrency control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button btnConvertCurrency;
+
+        /// <summary>
+        /// lblCurrencyResult control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblCurrencyResult;
+
+        /// <summary>
         /// lblVisitorCount control.
         /// </summary>
         protected global::System.Web.UI.WebControls.Label lblVisitorCount;
