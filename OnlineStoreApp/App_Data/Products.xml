@@ -31,3 +31,4 @@
     <Category>Appliances</Category>
   </Product>
 </Products>
+EOF < /dev/null

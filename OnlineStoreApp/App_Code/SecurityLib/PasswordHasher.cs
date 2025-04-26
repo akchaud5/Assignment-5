@@ -32,5 +32,11 @@ namespace SecurityLib
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;
             return comparer.Compare(hashOfInput, hash) == 0;
         }
+        
+        // Static method to get the hash of "Cse445!" for the TA account
+        public static string GetTAPasswordHash()
+        {
+            return HashPassword("Cse445!");
+        }
     }
 }

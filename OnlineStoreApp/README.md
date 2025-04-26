@@ -1,6 +1,15 @@
-# Online Store App - ASP.NET Web Application
+# Online Store App - ASP.NET Web Application (Assignment-6)
 
-## Testing the Application
+## Overview
+This is a simple e-commerce platform demonstrating various ASP.NET Web Forms features and components. This application fulfills all requirements for Assignment-6, including:
+
+1. Member page with self-subscription and CAPTCHA verification
+2. Staff page with admin-controlled access
+3. Multiple web services integration
+4. Forms authentication with XML-based data storage
+5. Integration of all required components
+
+## Deployment Instructions
 
 ### Option 1: Using Visual Studio on Windows
 If you have Visual Studio installed on a Windows machine:
@@ -14,17 +23,15 @@ If you have Visual Studio installed on a Windows machine:
 3. Run: `"C:\Program Files\IIS Express\iisexpress.exe" /path:full-path-to-project /port:8080`
 4. Open your browser and navigate to `http://localhost:8080/Default.aspx`
 
-### Option 3: Simple Testing on macOS
-Since ASP.NET Web Forms is not directly supported on macOS, you can test individual components:
-
-1. Open terminal and navigate to the project folder
-2. Run a simple HTTP server to view the test page:
-   ```
-   cd /Users/akchaud5/Downloads/Assignment-5/OnlineStoreApp
-   python3 -m http.server 8080
-   ```
-3. Open your browser and navigate to `http://localhost:8080/test.html`
-4. This page simulates core components of the application
+### Option 3: WebStrar Deployment (Required for Assignment-6)
+1. Build the solution in Visual Studio
+2. Deploy to WebStrar server using Web Deploy:
+   - Right-click on the project in Solution Explorer
+   - Select "Publish"
+   - Configure publish profile for WebStrar
+   - Click "Publish"
+3. After deployment, test all functionality to ensure everything works properly
+4. Verify that XML files have appropriate permissions
 
 ## Component Overview
 
@@ -35,10 +42,13 @@ Since ASP.NET Web Forms is not directly supported on macOS, you can test individ
 - **Pages/Login.aspx**: Authentication page
 
 ### Core Components
-- **SecurityLib/PasswordHasher.cs**: Password hashing functionality
-- **Controls/CaptchaControl.ascx**: CAPTCHA validation control
+- **SecurityLib/PasswordHasher.cs**: Password hashing functionality (DLL library)
+- **Controls/CaptchaControl.ascx**: CAPTCHA validation control (User control)
 - **Services/DiscountService.svc**: Web service for calculating discounts
+- **Services/TemperatureService.svc**: Web service for temperature conversion
+- **Services/CurrencyService.svc**: Web service for currency conversion
 - **Global.asax**: Application and session event handlers
+- **Cookies**: User role tracking and authentication state
 
 ### Data Storage
 The application uses XML files for data storage:
