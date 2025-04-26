@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Simple Online Store</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
