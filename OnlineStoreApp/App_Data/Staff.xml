@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StaffMembers>
-  <\!-- Default TA account for testing -->
   <Staff>
     <Username>TA</Username>
-    <\!-- This is the correct hash for password "Cse445\!" -->
     <Password>296c83ad6e9c320e59b36de46ba4d6e986ffcaff3d90518b1f9af5e2fe2a51b4</Password>
     <CreationDate>2025-04-25 12:00:00</CreationDate>
   </Staff>
 </StaffMembers>
-EOF < /dev/null

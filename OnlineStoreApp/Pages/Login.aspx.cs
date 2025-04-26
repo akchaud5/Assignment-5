@@ -154,33 +154,74 @@ namespace OnlineStoreApp.Pages
 
         private bool AuthenticateMember(string username, string password)
         {
-            string physicalPath = Server.MapPath(MembersXmlPath);
-
-            // Check if members.xml file exists
-            if (!File.Exists(physicalPath))
+            try
             {
-                return false;
-            }
+                string physicalPath = Server.MapPath(MembersXmlPath);
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(physicalPath);
-
-            XmlNodeList members = doc.SelectNodes("//Member");
-
-            foreach (XmlNode member in members)
-            {
-                string storedUsername = member.SelectSingleNode("Username").InnerText;
-                string storedHashedPassword = member.SelectSingleNode("Password").InnerText;
-
-                if (storedUsername == username)
+                // Check if members.xml file exists
+                if (!File.Exists(physicalPath))
                 {
-                    // Use local hash implementation to avoid type conflicts
-                    string hashedPassword = HashPassword(password);
-                    if (storedHashedPassword == hashedPassword)
+                    // Create an empty members file if it doesn't exist
+                    CreateMembersXmlFile(physicalPath);
+                    return false;
+                }
+
+                try
+                {
+                    // Try to load the file with better error handling
+                    string xmlContent = File.ReadAllText(physicalPath);
+                    
+                    // Remove any potential problematic comment tags
+                    xmlContent = System.Text.RegularExpressions.Regex.Replace(
+                        xmlContent, 
+                        @"<\\!--.*?-->", 
+                        string.Empty);
+                    
+                    using (System.IO.StringReader reader = new System.IO.StringReader(xmlContent))
                     {
-                        return true;
+                        XmlDocument doc = new XmlDocument();
+                        doc.Load(reader);
+
+                        XmlNodeList members = doc.SelectNodes("//Member");
+
+                        if (members != null)
+                        {
+                            foreach (XmlNode member in members)
+                            {
+                                XmlNode usernameNode = member.SelectSingleNode("Username");
+                                XmlNode passwordNode = member.SelectSingleNode("Password");
+                                
+                                if (usernameNode != null && passwordNode != null)
+                                {
+                                    string storedUsername = usernameNode.InnerText;
+                                    string storedHashedPassword = passwordNode.InnerText;
+
+                                    if (storedUsername == username)
+                                    {
+                                        // Use the DLL library for hashing
+                                        string hashedPassword = HashPassword(password);
+                                        if (storedHashedPassword == hashedPassword)
+                                        {
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    // Log the error
+                    System.Diagnostics.Debug.WriteLine("Error authenticating member: " + ex.Message);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log any other errors
+                System.Diagnostics.Debug.WriteLine("General error in AuthenticateMember: " + ex.Message);
+                return false;
             }
 
             return false;
@@ -188,59 +229,171 @@ namespace OnlineStoreApp.Pages
 
         private bool AuthenticateStaff(string username, string password)
         {
-            // Special case for TA testing
+            // Special case for TA testing - always allow this hardcoded account
             if (username == "TA" && password == "Cse445!")
             {
                 return true;
             }
 
-            string physicalPath = Server.MapPath(StaffXmlPath);
-
-            // Check if staff.xml file exists
-            if (!File.Exists(physicalPath))
+            try
             {
-                return false;
-            }
+                string physicalPath = Server.MapPath(StaffXmlPath);
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(physicalPath);
-
-            XmlNodeList staffMembers = doc.SelectNodes("//Staff");
-
-            foreach (XmlNode staff in staffMembers)
-            {
-                string storedUsername = staff.SelectSingleNode("Username").InnerText;
-                string storedHashedPassword = staff.SelectSingleNode("Password").InnerText;
-
-                if (storedUsername == username)
+                // Check if staff.xml file exists
+                if (!File.Exists(physicalPath))
                 {
-                    // Use local hash implementation to avoid type conflicts
-                    string hashedPassword = HashPassword(password);
-                    if (storedHashedPassword == hashedPassword)
+                    // Create staff file with TA account if it doesn't exist
+                    CreateStaffXmlFile(physicalPath);
+                    
+                    // Since we just created the file, we've only added the TA account
+                    // If the authentication request was for TA, we already returned true above
+                    // Otherwise, the account doesn't exist, return false
+                    return false;
+                }
+
+                try 
+                {
+                    // Try to load the file with XDocument which handles comments better
+                    string xmlContent = File.ReadAllText(physicalPath);
+                    
+                    // Remove malformed XML comment tags that could cause parsing issues
+                    xmlContent = System.Text.RegularExpressions.Regex.Replace(
+                        xmlContent, 
+                        @"<\\!--.*?-->", 
+                        string.Empty);
+                        
+                    using (System.IO.StringReader reader = new System.IO.StringReader(xmlContent))
                     {
-                        return true;
+                        XmlDocument doc = new XmlDocument();
+                        doc.Load(reader);
+
+                        XmlNodeList staffMembers = doc.SelectNodes("//Staff");
+
+                        if (staffMembers != null)
+                        {
+                            foreach (XmlNode staff in staffMembers)
+                            {
+                                XmlNode usernameNode = staff.SelectSingleNode("Username");
+                                XmlNode passwordNode = staff.SelectSingleNode("Password");
+                                
+                                if (usernameNode != null && passwordNode != null)
+                                {
+                                    string storedUsername = usernameNode.InnerText;
+                                    string storedHashedPassword = passwordNode.InnerText;
+
+                                    if (storedUsername == username)
+                                    {
+                                        // Use the DLL library to hash the password
+                                        string hashedPassword = HashPassword(password);
+                                        if (storedHashedPassword == hashedPassword)
+                                        {
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    // Log the error
+                    System.Diagnostics.Debug.WriteLine("Error authenticating staff: " + ex.Message);
+                    
+                    // If there's an XML parsing error, fall back to just the TA credentials
+                    // We already checked for TA above, so return false here
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log any other errors
+                System.Diagnostics.Debug.WriteLine("General error in AuthenticateStaff: " + ex.Message);
+                return false;
             }
 
             return false;
         }
+        
+        private void CreateStaffXmlFile(string filePath)
+        {
+            try
+            {
+                string staffXml = @"<?xml version=""1.0"" encoding=""UTF-8""?>
+<StaffMembers>
+  <Staff>
+    <Username>TA</Username>
+    <Password>" + HashPassword("Cse445!") + @"</Password>
+    <CreationDate>" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + @"</CreationDate>
+  </Staff>
+</StaffMembers>";
+
+                File.WriteAllText(filePath, staffXml);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error creating Staff.xml: " + ex.Message);
+            }
+        }
 
         private bool UsernameExists(string username)
         {
-            string physicalPath = Server.MapPath(MembersXmlPath);
-
-            if (!File.Exists(physicalPath))
+            try
             {
+                string physicalPath = Server.MapPath(MembersXmlPath);
+
+                if (!File.Exists(physicalPath))
+                {
+                    return false;
+                }
+
+                try
+                {
+                    // Read the file with better error handling
+                    string xmlContent = File.ReadAllText(physicalPath);
+                    
+                    // Remove any problematic comment tags
+                    xmlContent = System.Text.RegularExpressions.Regex.Replace(
+                        xmlContent, 
+                        @"<\\!--.*?-->", 
+                        string.Empty);
+                    
+                    using (System.IO.StringReader reader = new System.IO.StringReader(xmlContent))
+                    {
+                        XmlDocument doc = new XmlDocument();
+                        doc.Load(reader);
+
+                        // Use a safer approach to find the user node
+                        XmlNodeList members = doc.SelectNodes("//Member");
+                        
+                        if (members != null)
+                        {
+                            foreach (XmlNode member in members)
+                            {
+                                XmlNode usernameNode = member.SelectSingleNode("Username");
+                                if (usernameNode != null && usernameNode.InnerText == username)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log the error
+                    System.Diagnostics.Debug.WriteLine("Error checking if username exists: " + ex.Message);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log any other errors
+                System.Diagnostics.Debug.WriteLine("General error in UsernameExists: " + ex.Message);
                 return false;
             }
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(physicalPath);
-
-            XmlNode existingUser = doc.SelectSingleNode("//Member[Username='" + username + "']");
-
-            return existingUser != null;
+            return false;
         }
 
         private void CreateMembersXmlFile(string filePath)
