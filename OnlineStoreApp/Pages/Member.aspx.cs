@@ -71,40 +71,85 @@ namespace OnlineStoreApp.Pages
             dt.Columns.Add("Price", typeof(decimal));
             dt.Columns.Add("Category", typeof(string));
 
-            string productsXmlPath = Server.MapPath("~/App_Data/Products.xml");
-            if (System.IO.File.Exists(productsXmlPath))
+            try
             {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(productsXmlPath);
-
-                XmlNodeList products = doc.SelectNodes("//Product");
-                foreach (XmlNode product in products)
+                string productsXmlPath = Server.MapPath("~/App_Data/Products.xml");
+                if (System.IO.File.Exists(productsXmlPath))
                 {
-                    // Try to get product name from either "Name" or "n" node
-                    XmlNode nameNode = product.SelectSingleNode("Name") ?? product.SelectSingleNode("n");
-                    string productName = nameNode != null ? nameNode.InnerText : "Unknown";
-                    
-                    dt.Rows.Add(
-                        Convert.ToInt32(product.SelectSingleNode("Id").InnerText),
-                        productName,
-                        Convert.ToDecimal(product.SelectSingleNode("Price").InnerText),
-                        product.SelectSingleNode("Category").InnerText
-                    );
+                    try
+                    {
+                        XmlDocument doc = new XmlDocument();
+                        doc.Load(productsXmlPath);
+
+                        XmlNodeList products = doc.SelectNodes("//Product");
+                        foreach (XmlNode product in products)
+                        {
+                            try
+                            {
+                                // Try to get product name from either "Name" or "n" node
+                                XmlNode nameNode = product.SelectSingleNode("Name") ?? product.SelectSingleNode("n");
+                                string productName = nameNode != null ? nameNode.InnerText : "Unknown";
+                                
+                                XmlNode idNode = product.SelectSingleNode("Id");
+                                XmlNode priceNode = product.SelectSingleNode("Price");
+                                XmlNode categoryNode = product.SelectSingleNode("Category");
+                                
+                                if (idNode != null && priceNode != null && categoryNode != null)
+                                {
+                                    dt.Rows.Add(
+                                        Convert.ToInt32(idNode.InnerText),
+                                        productName,
+                                        Convert.ToDecimal(priceNode.InnerText),
+                                        categoryNode.InnerText
+                                    );
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                // Log the error but continue processing other products
+                                System.Diagnostics.Debug.WriteLine("Error processing product: " + ex.Message);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the error and load fallback data
+                        System.Diagnostics.Debug.WriteLine("Error loading Products.xml: " + ex.Message);
+                        LoadDefaultProducts(dt);
+                    }
+                }
+                else
+                {
+                    // XML doesn't exist, use fallback data
+                    LoadDefaultProducts(dt);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                // Fallback to sample products if XML doesn't exist
-                dt.Rows.Add(1, "Laptop", 999.99, "Electronics");
-                dt.Rows.Add(2, "Smartphone", 699.99, "Electronics");
-                dt.Rows.Add(3, "Headphones", 149.99, "Accessories");
-                dt.Rows.Add(4, "Desk Chair", 249.99, "Furniture");
-                dt.Rows.Add(5, "Coffee Maker", 79.99, "Appliances");
+                // Any other error
+                System.Diagnostics.Debug.WriteLine("Error in LoadProducts: " + ex.Message);
+                LoadDefaultProducts(dt);
+            }
+
+            // Make sure we have at least some products
+            if (dt.Rows.Count == 0)
+            {
+                LoadDefaultProducts(dt);
             }
 
             // Bind to Repeater
             rptProducts.DataSource = dt;
             rptProducts.DataBind();
+        }
+        
+        private void LoadDefaultProducts(DataTable dt)
+        {
+            // Fallback to sample products
+            dt.Rows.Add(1, "Laptop", 999.99, "Electronics");
+            dt.Rows.Add(2, "Smartphone", 699.99, "Electronics");
+            dt.Rows.Add(3, "Headphones", 149.99, "Accessories");
+            dt.Rows.Add(4, "Desk Chair", 249.99, "Furniture");
+            dt.Rows.Add(5, "Coffee Maker", 79.99, "Appliances");
         }
 
         private void LoadCart()

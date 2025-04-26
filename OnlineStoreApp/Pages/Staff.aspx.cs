@@ -49,60 +49,95 @@ namespace OnlineStoreApp.Pages
 
         private void LoadProducts()
         {
-            string physicalPath = Server.MapPath(ProductsXmlPath);
+            // Create a DataTable to hold products
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id", typeof(int));
+            dt.Columns.Add("Name", typeof(string));
+            dt.Columns.Add("Price", typeof(decimal));
+            dt.Columns.Add("Category", typeof(string));
 
-            if (File.Exists(physicalPath))
+            try
             {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(physicalPath);
+                string physicalPath = Server.MapPath(ProductsXmlPath);
 
-                DataTable dt = new DataTable();
-                dt.Columns.Add("Id", typeof(int));
-                dt.Columns.Add("Name", typeof(string));
-                dt.Columns.Add("Price", typeof(decimal));
-                dt.Columns.Add("Category", typeof(string));
-
-                XmlNodeList products = doc.SelectNodes("//Product");
-                foreach (XmlNode product in products)
+                if (File.Exists(physicalPath))
                 {
-                    // Try to get product name from either "Name" or "n" node
-                    XmlNode nameNode = product.SelectSingleNode("Name") ?? product.SelectSingleNode("n");
-                    string productName = nameNode != null ? nameNode.InnerText : "Unknown";
-                    
-                    dt.Rows.Add(
-                        Convert.ToInt32(product.SelectSingleNode("Id").InnerText),
-                        productName,
-                        Convert.ToDecimal(product.SelectSingleNode("Price").InnerText),
-                        product.SelectSingleNode("Category").InnerText
-                    );
+                    try
+                    {
+                        XmlDocument doc = new XmlDocument();
+                        doc.Load(physicalPath);
+
+                        XmlNodeList products = doc.SelectNodes("//Product");
+                        foreach (XmlNode product in products)
+                        {
+                            try
+                            {
+                                // Try to get product name from either "Name" or "n" node
+                                XmlNode nameNode = product.SelectSingleNode("Name") ?? product.SelectSingleNode("n");
+                                string productName = nameNode != null ? nameNode.InnerText : "Unknown";
+                                
+                                XmlNode idNode = product.SelectSingleNode("Id");
+                                XmlNode priceNode = product.SelectSingleNode("Price");
+                                XmlNode categoryNode = product.SelectSingleNode("Category");
+                                
+                                if (idNode != null && priceNode != null && categoryNode != null)
+                                {
+                                    dt.Rows.Add(
+                                        Convert.ToInt32(idNode.InnerText),
+                                        productName,
+                                        Convert.ToDecimal(priceNode.InnerText),
+                                        categoryNode.InnerText
+                                    );
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                // Log the error but continue processing other products
+                                System.Diagnostics.Debug.WriteLine("Error processing product: " + ex.Message);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the error and load default data
+                        System.Diagnostics.Debug.WriteLine("Error loading Products.xml: " + ex.Message);
+                        LoadDefaultProducts(dt);
+                        SaveProductsToXml(dt); // Save default products to fix the XML
+                    }
                 }
-
-                gvProducts.DataSource = dt;
-                gvProducts.DataBind();
+                else
+                {
+                    // XML doesn't exist, create it with default data
+                    LoadDefaultProducts(dt);
+                    SaveProductsToXml(dt);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // Create a DataTable with default products
-                DataTable dt = new DataTable();
-                dt.Columns.Add("Id", typeof(int));
-                dt.Columns.Add("Name", typeof(string));
-                dt.Columns.Add("Price", typeof(decimal));
-                dt.Columns.Add("Category", typeof(string));
-
-                // Add sample products
-                dt.Rows.Add(1, "Laptop", 999.99, "Electronics");
-                dt.Rows.Add(2, "Smartphone", 699.99, "Electronics");
-                dt.Rows.Add(3, "Headphones", 149.99, "Accessories");
-                dt.Rows.Add(4, "Desk Chair", 249.99, "Furniture");
-                dt.Rows.Add(5, "Coffee Maker", 79.99, "Appliances");
-
-                // Save to XML file
-                SaveProductsToXml(dt);
-
-                // Bind to GridView
-                gvProducts.DataSource = dt;
-                gvProducts.DataBind();
+                // Any other error
+                System.Diagnostics.Debug.WriteLine("Error in LoadProducts: " + ex.Message);
+                LoadDefaultProducts(dt);
             }
+
+            // Make sure we have at least some products
+            if (dt.Rows.Count == 0)
+            {
+                LoadDefaultProducts(dt);
+            }
+
+            // Bind to GridView
+            gvProducts.DataSource = dt;
+            gvProducts.DataBind();
+        }
+        
+        private void LoadDefaultProducts(DataTable dt)
+        {
+            // Fallback to sample products
+            dt.Rows.Add(1, "Laptop", 999.99, "Electronics");
+            dt.Rows.Add(2, "Smartphone", 699.99, "Electronics");
+            dt.Rows.Add(3, "Headphones", 149.99, "Accessories");
+            dt.Rows.Add(4, "Desk Chair", 249.99, "Furniture");
+            dt.Rows.Add(5, "Coffee Maker", 79.99, "Appliances");
         }
 
         private void LoadMembers()
