@@ -41,9 +41,10 @@ namespace OnlineStoreApp.Pages
                 // Display username
                 lblUsername.Text = User.Identity.Name;
 
-                // Load products and members
+                // Load products, members, and staff
                 LoadProducts();
                 LoadMembers();
+                LoadStaff();
             }
         }
 
@@ -144,28 +145,141 @@ namespace OnlineStoreApp.Pages
         {
             string physicalPath = Server.MapPath(MembersXmlPath);
 
-            if (File.Exists(physicalPath))
+            try
             {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(physicalPath);
-
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Username", typeof(string));
                 dt.Columns.Add("Email", typeof(string));
                 dt.Columns.Add("RegistrationDate", typeof(string));
 
-                XmlNodeList members = doc.SelectNodes("//Member");
-                foreach (XmlNode member in members)
+                if (File.Exists(physicalPath))
                 {
-                    dt.Rows.Add(
-                        member.SelectSingleNode("Username").InnerText,
-                        member.SelectSingleNode("Email").InnerText,
-                        member.SelectSingleNode("RegistrationDate").InnerText
-                    );
+                    try
+                    {
+                        // Read the file with better error handling
+                        string xmlContent = File.ReadAllText(physicalPath);
+                        
+                        // Remove any problematic comment tags
+                        xmlContent = System.Text.RegularExpressions.Regex.Replace(
+                            xmlContent, 
+                            @"<\\!--.*?-->", 
+                            string.Empty);
+                        
+                        using (System.IO.StringReader reader = new System.IO.StringReader(xmlContent))
+                        {
+                            XmlDocument doc = new XmlDocument();
+                            doc.Load(reader);
+
+                            XmlNodeList members = doc.SelectNodes("//Member");
+                            if (members != null)
+                            {
+                                foreach (XmlNode member in members)
+                                {
+                                    try
+                                    {
+                                        XmlNode usernameNode = member.SelectSingleNode("Username");
+                                        XmlNode emailNode = member.SelectSingleNode("Email");
+                                        XmlNode dateNode = member.SelectSingleNode("RegistrationDate");
+                                        
+                                        if (usernameNode != null && emailNode != null && dateNode != null)
+                                        {
+                                            dt.Rows.Add(
+                                                usernameNode.InnerText,
+                                                emailNode.InnerText,
+                                                dateNode.InnerText
+                                            );
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        System.Diagnostics.Debug.WriteLine("Error processing member: " + ex.Message);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Error loading Members.xml: " + ex.Message);
+                    }
                 }
 
                 gvMembers.DataSource = dt;
                 gvMembers.DataBind();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("General error in LoadMembers: " + ex.Message);
+            }
+        }
+        
+        private void LoadStaff()
+        {
+            string physicalPath = Server.MapPath(StaffXmlPath);
+
+            try
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Username", typeof(string));
+                dt.Columns.Add("CreationDate", typeof(string));
+
+                if (File.Exists(physicalPath))
+                {
+                    try
+                    {
+                        // Read the file with better error handling
+                        string xmlContent = File.ReadAllText(physicalPath);
+                        
+                        // Remove any problematic comment tags
+                        xmlContent = System.Text.RegularExpressions.Regex.Replace(
+                            xmlContent, 
+                            @"<\\!--.*?-->", 
+                            string.Empty);
+                        
+                        using (System.IO.StringReader reader = new System.IO.StringReader(xmlContent))
+                        {
+                            XmlDocument doc = new XmlDocument();
+                            doc.Load(reader);
+
+                            XmlNodeList staffMembers = doc.SelectNodes("//Staff");
+                            if (staffMembers != null)
+                            {
+                                foreach (XmlNode staff in staffMembers)
+                                {
+                                    try
+                                    {
+                                        XmlNode usernameNode = staff.SelectSingleNode("Username");
+                                        XmlNode dateNode = staff.SelectSingleNode("CreationDate");
+                                        
+                                        if (usernameNode != null)
+                                        {
+                                            string creationDate = dateNode != null ? dateNode.InnerText : "N/A";
+                                            dt.Rows.Add(
+                                                usernameNode.InnerText,
+                                                creationDate
+                                            );
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        System.Diagnostics.Debug.WriteLine("Error processing staff member: " + ex.Message);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Error loading Staff.xml: " + ex.Message);
+                    }
+                }
+
+                gvStaff.DataSource = dt;
+                gvStaff.DataBind();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("General error in LoadStaff: " + ex.Message);
             }
         }
 
@@ -243,44 +357,82 @@ namespace OnlineStoreApp.Pages
                 CreateStaffXmlFile(physicalPath);
             }
 
-            // Use local hash implementation to avoid type conflicts
+            // Use DLL library for password hashing
             string hashedPassword = HashPassword(password);
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(physicalPath);
-
-            // Check if username already exists
-            XmlNode existingStaff = doc.SelectSingleNode("//Staff[Username='" + username + "']");
-            if (existingStaff != null)
+            try
             {
-                lblStaffMessage.Text = "Username already exists. Please choose another.";
-                return;
+                // Read the file with better error handling
+                string xmlContent = File.ReadAllText(physicalPath);
+                
+                // Remove any problematic comment tags
+                xmlContent = System.Text.RegularExpressions.Regex.Replace(
+                    xmlContent, 
+                    @"<\\!--.*?-->", 
+                    string.Empty);
+                
+                using (System.IO.StringReader reader = new System.IO.StringReader(xmlContent))
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(reader);
+
+                    // Check if username already exists
+                    XmlNodeList staffMembers = doc.SelectNodes("//Staff");
+                    bool usernameExists = false;
+                    
+                    if (staffMembers != null)
+                    {
+                        foreach (XmlNode staff in staffMembers)
+                        {
+                            XmlNode usernameNode = staff.SelectSingleNode("Username");
+                            if (usernameNode != null && usernameNode.InnerText == username)
+                            {
+                                usernameExists = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (usernameExists)
+                    {
+                        lblStaffMessage.Text = "Username already exists. Please choose another.";
+                        return;
+                    }
+
+                    // Create a new staff node
+                    XmlElement newStaff = doc.CreateElement("Staff");
+
+                    XmlElement usernameElement = doc.CreateElement("Username");
+                    usernameElement.InnerText = username;
+                    newStaff.AppendChild(usernameElement);
+
+                    XmlElement passwordElement = doc.CreateElement("Password");
+                    passwordElement.InnerText = hashedPassword;
+                    newStaff.AppendChild(passwordElement);
+
+                    XmlElement dateElement = doc.CreateElement("CreationDate");
+                    dateElement.InnerText = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    newStaff.AppendChild(dateElement);
+
+                    doc.DocumentElement.AppendChild(newStaff);
+                    doc.Save(physicalPath);
+
+                    // Clear form
+                    txtStaffUsername.Text = "";
+                    txtStaffPassword.Text = "";
+
+                    // Show message
+                    lblStaffMessage.Text = "Staff member added successfully!";
+                    
+                    // Reload staff list
+                    LoadStaff();
+                }
             }
-
-            // Create a new staff node
-            XmlElement newStaff = doc.CreateElement("Staff");
-
-            XmlElement usernameElement = doc.CreateElement("Username");
-            usernameElement.InnerText = username;
-            newStaff.AppendChild(usernameElement);
-
-            XmlElement passwordElement = doc.CreateElement("Password");
-            passwordElement.InnerText = hashedPassword;
-            newStaff.AppendChild(passwordElement);
-
-            XmlElement dateElement = doc.CreateElement("CreationDate");
-            dateElement.InnerText = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            newStaff.AppendChild(dateElement);
-
-            doc.DocumentElement.AppendChild(newStaff);
-            doc.Save(physicalPath);
-
-            // Clear form
-            txtStaffUsername.Text = "";
-            txtStaffPassword.Text = "";
-
-            // Show message
-            lblStaffMessage.Text = "Staff member added successfully!";
+            catch (Exception ex)
+            {
+                lblStaffMessage.Text = "Error: " + ex.Message;
+                System.Diagnostics.Debug.WriteLine("Error adding staff: " + ex.Message);
+            }
         }
 
         private void SaveProductsToXml(DataTable dt)
