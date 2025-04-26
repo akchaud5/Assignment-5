@@ -76,6 +76,11 @@ namespace OnlineStoreApp.Pages
         /// gvMembers control.
         /// </summary>
         protected global::System.Web.UI.WebControls.GridView gvMembers;
+        
+        /// <summary>
+        /// gvStaff control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.GridView gvStaff;
 
         /// <summary>
         /// txtStaffUsername control.
