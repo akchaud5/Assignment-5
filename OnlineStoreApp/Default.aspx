@@ -64,7 +64,8 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
 
-            <h2>Service Directory</h2>
+            <h2>Application and Components Summary Table</h2>
+            <p>Percentage of overall contribution: Your Name: 100%</p>
             <table>
                 <tr>
                     <th>Provider</th>
@@ -109,6 +110,42 @@
                     <td>N/A</td>
                     <td>N/A</td>
                     <td>Visitor counter implementation</td>
+                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                </tr>
+                <tr>
+                    <td>Your Name</td>
+                    <td>Cookie</td>
+                    <td>UserRole</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>Stores user role for authentication</td>
+                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                </tr>
+                <tr>
+                    <td>Your Name</td>
+                    <td>XML Storage</td>
+                    <td>Products.xml</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>Stores product information</td>
+                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                </tr>
+                <tr>
+                    <td>Your Name</td>
+                    <td>XML Storage</td>
+                    <td>Members.xml</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>Stores member accounts</td>
+                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                </tr>
+                <tr>
+                    <td>Your Name</td>
+                    <td>XML Storage</td>
+                    <td>Staff.xml</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>Stores staff accounts</td>
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
             </table>

@@ -65,9 +65,13 @@ namespace OnlineStoreApp.Pages
                 XmlNodeList products = doc.SelectNodes("//Product");
                 foreach (XmlNode product in products)
                 {
+                    // Try to get product name from either "Name" or "n" node
+                    XmlNode nameNode = product.SelectSingleNode("Name") ?? product.SelectSingleNode("n");
+                    string productName = nameNode != null ? nameNode.InnerText : "Unknown";
+                    
                     dt.Rows.Add(
                         Convert.ToInt32(product.SelectSingleNode("Id").InnerText),
-                        product.SelectSingleNode("Name").InnerText,
+                        productName,
                         Convert.ToDecimal(product.SelectSingleNode("Price").InnerText),
                         product.SelectSingleNode("Category").InnerText
                     );
@@ -341,23 +345,10 @@ namespace OnlineStoreApp.Pages
             Response.Redirect("~/Default.aspx");
         }
         
-        // Local implementation of password hashing to avoid type conflicts
+        // Use DLL library for password hashing
         private string HashPassword(string password)
         {
-            // Use SHA256 for hashing
-            using (System.Security.Cryptography.SHA256 sha256Hash = System.Security.Cryptography.SHA256.Create())
-            {
-                // Convert the input string to a byte array and compute the hash
-                byte[] bytes = sha256Hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-
-                // Convert byte array to a string
-                System.Text.StringBuilder builder = new System.Text.StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
+            return PasswordHasher.HashPassword(password);
         }
     }
 }
