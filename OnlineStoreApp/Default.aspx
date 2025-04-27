@@ -66,7 +66,6 @@
             </asp:GridView>
 
             <h2>Application and Components Summary Table</h2>
-            <p>Percentage of overall contribution: Ayush Chaudhary: 100%</p>
             <table>
                 <tr>
                     <th>Provider</th>
