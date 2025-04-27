@@ -86,7 +86,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Bryan</td>
+                    <td>Bryan Ambrose</td>
                     <td>WSDL Service</td>
                     <td>ZipcodeVerifierService</td>
                     <td>zipcode (string)</td>
@@ -104,7 +104,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Bryan</td>
+                    <td>Bryan Ambrose</td>
                     <td>WSDL Service</td>
                     <td>AgeVerificationService</td>
                     <td>age (int), birthdate (DateTime)</td>
