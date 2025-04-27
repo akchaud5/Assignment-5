@@ -66,7 +66,7 @@
             </asp:GridView>
 
             <h2>Application and Components Summary Table</h2>
-            <p>Percentage of overall contribution: Your Name: 100%</p>
+            <p>Percentage of overall contribution: Ayush Chaudhary: 100%</p>
             <table>
                 <tr>
                     <th>Provider</th>
@@ -78,7 +78,7 @@
                     <th>Test</th>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Ayush Chaudhary</td>
                     <td>WSDL Service</td>
                     <td>CalculateDiscount</td>
                     <td>price (decimal), quantity (int)</td>
@@ -87,7 +87,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Bryan</td>
                     <td>WSDL Service</td>
                     <td>ZipcodeVerifierService</td>
                     <td>zipcode (string)</td>
@@ -96,7 +96,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Nilesh Kumar</td>
                     <td>WSDL Service</td>
                     <td>TaxCalculatorService</td>
                     <td>price (decimal), stateCode (string)</td>
@@ -105,7 +105,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Bryan</td>
                     <td>WSDL Service</td>
                     <td>AgeVerificationService</td>
                     <td>age (int), birthdate (DateTime)</td>
@@ -114,7 +114,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Nilesh Kumar</td>
                     <td>WSDL Service</td>
                     <td>LastViewedProductService</td>
                     <td>username (string), productId (int), count (int)</td>
@@ -123,7 +123,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Ayush Chaudhary</td>
                     <td>DLL Function</td>
                     <td>HashPassword</td>
                     <td>password (string)</td>
@@ -132,7 +132,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Ayush Chaudhary</td>
                     <td>User Control</td>
                     <td>Captcha</td>
                     <td>N/A</td>
@@ -141,7 +141,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Ayush Chaudhary</td>
                     <td>Global.asax</td>
                     <td>Session_Start</td>
                     <td>N/A</td>
@@ -150,7 +150,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Ayush Chaudhary</td>
                     <td>Cookie</td>
                     <td>UserRole</td>
                     <td>N/A</td>
@@ -159,7 +159,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Ayush Chaudhary</td>
                     <td>XML Storage</td>
                     <td>Products.xml</td>
                     <td>N/A</td>
@@ -168,22 +168,22 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Ayush Chaudhary</td>
                     <td>XML Storage</td>
                     <td>Members.xml</td>
                     <td>N/A</td>
                     <td>N/A</td>
                     <td>Stores member accounts</td>
-                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                    <td><a href="Pages/Member.aspx" class="btn">View</a></td>
                 </tr>
                 <tr>
-                    <td>Your Name</td>
+                    <td>Ayush Chaudhary</td>
                     <td>XML Storage</td>
                     <td>Staff.xml</td>
                     <td>N/A</td>
                     <td>N/A</td>
                     <td>Stores staff accounts</td>
-                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                    <td><a href="Pages/Staff.aspx" class="btn">View</a></td>
                 </tr>
             </table>
 
