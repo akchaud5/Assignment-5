@@ -18,12 +18,12 @@ This is a simple e-commerce platform demonstrating various ASP.NET Web Forms fea
 - XML-based user data storage
 - Cookie-based role management
 
-### Web Services (WCF)
-- **DiscountService**: Calculates discounts based on order quantity and price
-- **ZipcodeVerifierService**: Validates US zipcode format and identifies state region
-- **TaxCalculatorService**: Calculates sales tax at default rate (7%) or by state
-- **AgeVerificationService**: Verifies if a user is an adult (18+) or calculates years until adulthood
-- **LastViewedProductService**: Tracks and retrieves recently viewed products using cookies
+### Web Services
+- **DiscountService** (WCF): Calculates discounts based on order quantity and price
+- **ZipcodeVerifierService** (WCF): Validates US zipcode format and identifies state region
+- **TaxCalculatorService** (WCF): Calculates sales tax at default rate (7%) or by state
+- **AgeVerificationService** (WCF): Verifies if a user is an adult (18+) or calculates years until adulthood
+- **LastViewedProductService** (Cookie-based): Tracks and retrieves recently viewed products using browser cookies
 
 ### Member Features
 - Shopping cart functionality
@@ -83,7 +83,7 @@ If you have Visual Studio installed on a Windows machine:
 - **ZipcodeVerifierService.svc**: Validates zipcode format and identifies state region
 - **TaxCalculatorService.svc**: Calculates sales tax at default or state-specific rates
 - **AgeVerificationService.svc**: Verifies adult status and calculates years until adulthood
-- **LastViewedProductService.svc**: Tracks and retrieves product viewing history using cookies
+- **LastViewedProductService.svc**: Cookie-based service that tracks and retrieves product viewing history
 
 ### Core Components
 - **SecurityLib/PasswordHasher.cs**: Password hashing functionality (DLL library)

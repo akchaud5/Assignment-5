@@ -114,7 +114,7 @@
                 </tr>
                 <tr>
                     <td>Nilay Kumar</td>
-                    <td>WSDL Service</td>
+                    <td>Cookie-based Service</td>
                     <td>LastViewedProductService</td>
                     <td>username (string), productId (int), count (int)</td>
                     <td>ProductInfo, List</td>

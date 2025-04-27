@@ -22,7 +22,7 @@
 | ZipcodeVerifierService    | WCF Service    | Bryan Ambrose    | Validates US zipcode format and identifies state region | TryIt.aspx |
 | TaxCalculatorService      | WCF Service    | Nilay Kumar      | Calculates sales tax at default (7%) or state rates | TryIt.aspx |
 | AgeVerificationService    | WCF Service    | Bryan Ambrose    | Verifies if a user is an adult (18+) | TryIt.aspx |
-| LastViewedProductService  | WCF Service    | Nilay Kumar      | Tracks and retrieves recently viewed products using cookies | TryIt.aspx |
+| LastViewedProductService  | Cookie-based Service | Nilay Kumar      | Tracks and retrieves recently viewed products using cookies | TryIt.aspx |
 | PasswordHasher            | DLL Library    | Ayush Chaudhary  | Securely hashes passwords with SHA-256 | TryIt.aspx |
 | CaptchaControl            | User Control   | Ayush Chaudhary  | CAPTCHA verification for forms | TryIt.aspx, Login.aspx |
 | Default.aspx              | Web Page       | Ayush Chaudhary  | Public landing page with product catalog | Direct access |
