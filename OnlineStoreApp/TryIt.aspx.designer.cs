@@ -138,6 +138,111 @@ namespace OnlineStoreApp
         protected global::System.Web.UI.WebControls.Label lblTaxResult;
 
         /// <summary>
+        /// txtAge control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox txtAge;
+
+        /// <summary>
+        /// rfvAge control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAge;
+
+        /// <summary>
+        /// rvAge control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RangeValidator rvAge;
+
+        /// <summary>
+        /// rbVerifyAdult control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RadioButton rbVerifyAdult;
+
+        /// <summary>
+        /// rbYearsUntil control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RadioButton rbYearsUntil;
+
+        /// <summary>
+        /// btnVerifyAge control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button btnVerifyAge;
+
+        /// <summary>
+        /// lblAgeResult control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblAgeResult;
+
+        /// <summary>
+        /// txtUsername control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox txtUsername;
+
+        /// <summary>
+        /// rfvUsername control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvUsername;
+
+        /// <summary>
+        /// ddlOperation control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOperation;
+
+        /// <summary>
+        /// pnlRecordProduct control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel pnlRecordProduct;
+
+        /// <summary>
+        /// txtProductId control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox txtProductId;
+
+        /// <summary>
+        /// rfvProductId control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProductId;
+
+        /// <summary>
+        /// txtProductName control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox txtProductName;
+
+        /// <summary>
+        /// rfvProductName control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProductName;
+
+        /// <summary>
+        /// pnlRecentProducts control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel pnlRecentProducts;
+
+        /// <summary>
+        /// txtCount control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox txtCount;
+
+        /// <summary>
+        /// rfvCount control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCount;
+
+        /// <summary>
+        /// rvCount control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.RangeValidator rvCount;
+
+        /// <summary>
+        /// btnProductOperation control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button btnProductOperation;
+
+        /// <summary>
+        /// lblProductResult control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblProductResult;
+
+        /// <summary>
         /// lblVisitorCount control.
         /// </summary>
         protected global::System.Web.UI.WebControls.Label lblVisitorCount;
