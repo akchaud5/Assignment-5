@@ -1,0 +1,1 @@
+<%@ ServiceHost Language="C#" Debug="true" Service="OnlineStoreApp.Services.TaxCalculatorService" CodeBehind="~/App_Code/CurrencyService.cs" Factory="System.ServiceModel.Activation.WebServiceHostFactory" %>

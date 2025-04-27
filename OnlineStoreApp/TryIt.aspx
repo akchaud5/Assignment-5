@@ -93,70 +93,158 @@
             </div>
 
             <div class="panel">
-                <h3>Temperature Converter Service</h3>
-                <p>This service converts between Fahrenheit and Celsius.</p>
+                <h3>Zipcode Verifier Service</h3>
+                <p>This service verifies zipcode format and identifies the state region.</p>
                 
                 <div class="form-group">
-                    <label for="txtTemperature">Temperature:</label>
-                    <asp:TextBox ID="txtTemperature" runat="server" TextMode="Number" Step="0.01"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvTemperature" runat="server" ControlToValidate="txtTemperature"
-                        ErrorMessage="Temperature is required" Display="Dynamic" ForeColor="Red" ValidationGroup="TempGroup">
+                    <label for="txtZipcode">Zipcode:</label>
+                    <asp:TextBox ID="txtZipcode" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvZipcode" runat="server" ControlToValidate="txtZipcode"
+                        ErrorMessage="Zipcode is required" Display="Dynamic" ForeColor="Red" ValidationGroup="ZipcodeGroup">
                     </asp:RequiredFieldValidator>
                 </div>
                 
                 <div class="form-group">
-                    <asp:RadioButton ID="rbFtoC" runat="server" GroupName="TempConversion" Text="Fahrenheit to Celsius" Checked="true" />
-                    <asp:RadioButton ID="rbCtoF" runat="server" GroupName="TempConversion" Text="Celsius to Fahrenheit" />
+                    <asp:RadioButton ID="rbVerify" runat="server" GroupName="ZipcodeOperation" Text="Verify Format" Checked="true" />
+                    <asp:RadioButton ID="rbGetState" runat="server" GroupName="ZipcodeOperation" Text="Get State Region" />
                 </div>
                 
-                <asp:Button ID="btnConvertTemp" runat="server" Text="Convert" CssClass="btn" 
-                    OnClick="btnConvertTemp_Click" ValidationGroup="TempGroup" />
+                <asp:Button ID="btnVerifyZipcode" runat="server" Text="Process" CssClass="btn" 
+                    OnClick="btnVerifyZipcode_Click" ValidationGroup="ZipcodeGroup" />
                 
                 <div class="result">
-                    <strong>Result:</strong> <asp:Label ID="lblTempResult" runat="server"></asp:Label>
+                    <strong>Result:</strong> <asp:Label ID="lblZipcodeResult" runat="server"></asp:Label>
                 </div>
             </div>
 
             <div class="panel">
-                <h3>Currency Converter Service</h3>
-                <p>This service converts between different currencies.</p>
+                <h3>Tax Calculator Service</h3>
+                <p>This service calculates sales tax at a default rate of 7% or by state.</p>
                 
                 <div class="form-group">
-                    <label for="txtAmount">Amount:</label>
-                    <asp:TextBox ID="txtAmount" runat="server" TextMode="Number" Step="0.01"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ControlToValidate="txtAmount"
-                        ErrorMessage="Amount is required" Display="Dynamic" ForeColor="Red" ValidationGroup="CurrencyGroup">
+                    <label for="txtPrice">Price:</label>
+                    <asp:TextBox ID="txtTaxPrice" runat="server" TextMode="Number" Step="0.01"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvTaxPrice" runat="server" ControlToValidate="txtTaxPrice"
+                        ErrorMessage="Price is required" Display="Dynamic" ForeColor="Red" ValidationGroup="TaxGroup">
                     </asp:RequiredFieldValidator>
                 </div>
                 
                 <div class="form-group">
-                    <label for="ddlFromCurrency">From Currency:</label>
-                    <asp:DropDownList ID="ddlFromCurrency" runat="server">
-                        <asp:ListItem Text="USD - US Dollar" Value="USD" Selected="True"></asp:ListItem>
-                        <asp:ListItem Text="EUR - Euro" Value="EUR"></asp:ListItem>
-                        <asp:ListItem Text="GBP - British Pound" Value="GBP"></asp:ListItem>
-                        <asp:ListItem Text="JPY - Japanese Yen" Value="JPY"></asp:ListItem>
+                    <label for="ddlState">State (optional):</label>
+                    <asp:DropDownList ID="ddlState" runat="server">
+                        <asp:ListItem Text="Default (7%)" Value="" Selected="True"></asp:ListItem>
+                        <asp:ListItem Text="Alabama (4%)" Value="AL"></asp:ListItem>
+                        <asp:ListItem Text="Alaska (0%)" Value="AK"></asp:ListItem>
+                        <asp:ListItem Text="Arizona (5.6%)" Value="AZ"></asp:ListItem>
+                        <asp:ListItem Text="California (7.25%)" Value="CA"></asp:ListItem>
+                        <asp:ListItem Text="New York (4%)" Value="NY"></asp:ListItem>
+                        <asp:ListItem Text="Texas (6.25%)" Value="TX"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 
                 <div class="form-group">
-                    <label for="ddlToCurrency">To Currency:</label>
-                    <asp:DropDownList ID="ddlToCurrency" runat="server">
-                        <asp:ListItem Text="USD - US Dollar" Value="USD"></asp:ListItem>
-                        <asp:ListItem Text="EUR - Euro" Value="EUR" Selected="True"></asp:ListItem>
-                        <asp:ListItem Text="GBP - British Pound" Value="GBP"></asp:ListItem>
-                        <asp:ListItem Text="JPY - Japanese Yen" Value="JPY"></asp:ListItem>
-                    </asp:DropDownList>
+                    <asp:RadioButton ID="rbTaxOnly" runat="server" GroupName="TaxOperation" Text="Calculate Tax Only" Checked="true" />
+                    <asp:RadioButton ID="rbTotalWithTax" runat="server" GroupName="TaxOperation" Text="Calculate Total with Tax" />
                 </div>
                 
-                <asp:Button ID="btnConvertCurrency" runat="server" Text="Convert" CssClass="btn" 
-                    OnClick="btnConvertCurrency_Click" ValidationGroup="CurrencyGroup" />
+                <asp:Button ID="btnCalculateTax" runat="server" Text="Calculate" CssClass="btn" 
+                    OnClick="btnCalculateTax_Click" ValidationGroup="TaxGroup" />
                 
                 <div class="result">
-                    <strong>Result:</strong> <asp:Label ID="lblCurrencyResult" runat="server"></asp:Label>
+                    <strong>Result:</strong> <asp:Label ID="lblTaxResult" runat="server"></asp:Label>
                 </div>
             </div>
 
+            <div class="panel">
+                <h3>Age Verification Service</h3>
+                <p>This service verifies if a user is an adult (18 years or older).</p>
+                
+                <div class="form-group">
+                    <label for="txtAge">Age:</label>
+                    <asp:TextBox ID="txtAge" runat="server" TextMode="Number"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvAge" runat="server" ControlToValidate="txtAge"
+                        ErrorMessage="Age is required" Display="Dynamic" ForeColor="Red" ValidationGroup="AgeGroup">
+                    </asp:RequiredFieldValidator>
+                    <asp:RangeValidator ID="rvAge" runat="server" ControlToValidate="txtAge"
+                        ErrorMessage="Age must be between 0 and 120" MinimumValue="0" MaximumValue="120"
+                        Type="Integer" Display="Dynamic" ForeColor="Red" ValidationGroup="AgeGroup">
+                    </asp:RangeValidator>
+                </div>
+                
+                <div class="form-group">
+                    <asp:RadioButton ID="rbVerifyAdult" runat="server" GroupName="AgeOperation" Text="Verify Adult Status" Checked="true" />
+                    <asp:RadioButton ID="rbYearsUntil" runat="server" GroupName="AgeOperation" Text="Years Until Adult" />
+                </div>
+                
+                <asp:Button ID="btnVerifyAge" runat="server" Text="Verify" CssClass="btn" 
+                    OnClick="btnVerifyAge_Click" ValidationGroup="AgeGroup" />
+                
+                <div class="result">
+                    <strong>Result:</strong> <asp:Label ID="lblAgeResult" runat="server"></asp:Label>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <h3>Last Viewed Product Service</h3>
+                <p>This service tracks and retrieves the last products viewed by a user.</p>
+                
+                <div class="form-group">
+                    <label for="txtUsername">Username:</label>
+                    <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername"
+                        ErrorMessage="Username is required" Display="Dynamic" ForeColor="Red" ValidationGroup="ProductGroup">
+                    </asp:RequiredFieldValidator>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ddlOperation">Operation:</label>
+                    <asp:DropDownList ID="ddlOperation" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlOperation_SelectedIndexChanged">
+                        <asp:ListItem Text="View Last Product" Value="last" Selected="True"></asp:ListItem>
+                        <asp:ListItem Text="Record Product View" Value="record"></asp:ListItem>
+                        <asp:ListItem Text="Get Recent Products" Value="recent"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                
+                <asp:Panel ID="pnlRecordProduct" runat="server" Visible="false">
+                    <div class="form-group">
+                        <label for="txtProductId">Product ID:</label>
+                        <asp:TextBox ID="txtProductId" runat="server" TextMode="Number"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvProductId" runat="server" ControlToValidate="txtProductId"
+                            ErrorMessage="Product ID is required" Display="Dynamic" ForeColor="Red" ValidationGroup="ProductGroup">
+                        </asp:RequiredFieldValidator>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="txtProductName">Product Name:</label>
+                        <asp:TextBox ID="txtProductName" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvProductName" runat="server" ControlToValidate="txtProductName"
+                            ErrorMessage="Product Name is required" Display="Dynamic" ForeColor="Red" ValidationGroup="ProductGroup">
+                        </asp:RequiredFieldValidator>
+                    </div>
+                </asp:Panel>
+                
+                <asp:Panel ID="pnlRecentProducts" runat="server" Visible="false">
+                    <div class="form-group">
+                        <label for="txtCount">Number of Products:</label>
+                        <asp:TextBox ID="txtCount" runat="server" TextMode="Number" Text="3"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvCount" runat="server" ControlToValidate="txtCount"
+                            ErrorMessage="Count is required" Display="Dynamic" ForeColor="Red" ValidationGroup="ProductGroup">
+                        </asp:RequiredFieldValidator>
+                        <asp:RangeValidator ID="rvCount" runat="server" ControlToValidate="txtCount"
+                            ErrorMessage="Count must be between 1 and 10" MinimumValue="1" MaximumValue="10"
+                            Type="Integer" Display="Dynamic" ForeColor="Red" ValidationGroup="ProductGroup">
+                        </asp:RangeValidator>
+                    </div>
+                </asp:Panel>
+                
+                <asp:Button ID="btnProductOperation" runat="server" Text="Submit" CssClass="btn" 
+                    OnClick="btnProductOperation_Click" ValidationGroup="ProductGroup" />
+                
+                <div class="result">
+                    <strong>Result:</strong> <asp:Label ID="lblProductResult" runat="server"></asp:Label>
+                </div>
+            </div>
+            
             <div class="panel">
                 <h3>Application State</h3>
                 <p>This component demonstrates the use of Application state for visitor counting.</p>

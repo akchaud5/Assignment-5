@@ -73,64 +73,69 @@ namespace OnlineStoreApp
         protected global::System.Web.UI.WebControls.Label lblCaptchaResult;
 
         /// <summary>
-        /// txtTemperature control.
+        /// txtZipcode control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.TextBox txtTemperature;
+        protected global::System.Web.UI.WebControls.TextBox txtZipcode;
 
         /// <summary>
-        /// rfvTemperature control.
+        /// rfvZipcode control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTemperature;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvZipcode;
 
         /// <summary>
-        /// rbFtoC control.
+        /// rbVerify control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.RadioButton rbFtoC;
+        protected global::System.Web.UI.WebControls.RadioButton rbVerify;
 
         /// <summary>
-        /// rbCtoF control.
+        /// rbGetState control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.RadioButton rbCtoF;
+        protected global::System.Web.UI.WebControls.RadioButton rbGetState;
 
         /// <summary>
-        /// btnConvertTemp control.
+        /// btnVerifyZipcode control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnConvertTemp;
+        protected global::System.Web.UI.WebControls.Button btnVerifyZipcode;
 
         /// <summary>
-        /// lblTempResult control.
+        /// lblZipcodeResult control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.Label lblTempResult;
+        protected global::System.Web.UI.WebControls.Label lblZipcodeResult;
 
         /// <summary>
-        /// txtAmount control.
+        /// txtTaxPrice control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.TextBox txtAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtTaxPrice;
 
         /// <summary>
-        /// rfvAmount control.
+        /// rfvTaxPrice control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAmount;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTaxPrice;
 
         /// <summary>
-        /// ddlFromCurrency control.
+        /// ddlState control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFromCurrency;
+        protected global::System.Web.UI.WebControls.DropDownList ddlState;
 
         /// <summary>
-        /// ddlToCurrency control.
+        /// rbTaxOnly control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.DropDownList ddlToCurrency;
+        protected global::System.Web.UI.WebControls.RadioButton rbTaxOnly;
 
         /// <summary>
-        /// btnConvertCurrency control.
+        /// rbTotalWithTax control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.Button btnConvertCurrency;
+        protected global::System.Web.UI.WebControls.RadioButton rbTotalWithTax;
 
         /// <summary>
-        /// lblCurrencyResult control.
+        /// btnCalculateTax control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.Label lblCurrencyResult;
+        protected global::System.Web.UI.WebControls.Button btnCalculateTax;
+
+        /// <summary>
+        /// lblTaxResult control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblTaxResult;
 
         /// <summary>
         /// lblVisitorCount control.

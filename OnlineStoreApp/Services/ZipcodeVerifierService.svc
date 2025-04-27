@@ -1,0 +1,1 @@
+<%@ ServiceHost Language="C#" Debug="true" Service="OnlineStoreApp.Services.ZipcodeVerifierService" CodeBehind="~/App_Code/TemperatureService.cs" Factory="System.ServiceModel.Activation.WebServiceHostFactory" %>

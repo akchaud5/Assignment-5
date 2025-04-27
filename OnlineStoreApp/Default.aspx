@@ -89,19 +89,37 @@
                 <tr>
                     <td>Your Name</td>
                     <td>WSDL Service</td>
-                    <td>TemperatureService</td>
-                    <td>temperature (double)</td>
-                    <td>double</td>
-                    <td>Converts between Fahrenheit and Celsius</td>
+                    <td>ZipcodeVerifierService</td>
+                    <td>zipcode (string)</td>
+                    <td>bool, string</td>
+                    <td>Verifies zipcode format and identifies state region</td>
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
                     <td>Your Name</td>
                     <td>WSDL Service</td>
-                    <td>CurrencyService</td>
-                    <td>amount (double), fromCurrency (string), toCurrency (string)</td>
-                    <td>double</td>
-                    <td>Converts between different currencies</td>
+                    <td>TaxCalculatorService</td>
+                    <td>price (decimal), stateCode (string)</td>
+                    <td>decimal</td>
+                    <td>Calculates sales tax at rate of 0.07 or by state</td>
+                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                </tr>
+                <tr>
+                    <td>Your Name</td>
+                    <td>WSDL Service</td>
+                    <td>AgeVerificationService</td>
+                    <td>age (int), birthdate (DateTime)</td>
+                    <td>bool, string, int</td>
+                    <td>Verifies if a user is an adult (18+)</td>
+                    <td><a href="TryIt.aspx" class="btn">Try It</a></td>
+                </tr>
+                <tr>
+                    <td>Your Name</td>
+                    <td>WSDL Service</td>
+                    <td>LastViewedProductService</td>
+                    <td>username (string), productId (int), count (int)</td>
+                    <td>ProductInfo, List</td>
+                    <td>Tracks and retrieves recently viewed products</td>
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
