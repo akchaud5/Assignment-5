@@ -23,7 +23,7 @@ This is a simple e-commerce platform demonstrating various ASP.NET Web Forms fea
 - **ZipcodeVerifierService**: Validates US zipcode format and identifies state region
 - **TaxCalculatorService**: Calculates sales tax at default rate (7%) or by state
 - **AgeVerificationService**: Verifies if a user is an adult (18+) or calculates years until adulthood
-- **LastViewedProductService**: Tracks and retrieves recently viewed products for users
+- **LastViewedProductService**: Tracks and retrieves recently viewed products using cookies
 
 ### Member Features
 - Shopping cart functionality
@@ -83,7 +83,7 @@ If you have Visual Studio installed on a Windows machine:
 - **ZipcodeVerifierService.svc**: Validates zipcode format and identifies state region
 - **TaxCalculatorService.svc**: Calculates sales tax at default or state-specific rates
 - **AgeVerificationService.svc**: Verifies adult status and calculates years until adulthood
-- **LastViewedProductService.svc**: Tracks and retrieves product viewing history
+- **LastViewedProductService.svc**: Tracks and retrieves product viewing history using cookies
 
 ### Core Components
 - **SecurityLib/PasswordHasher.cs**: Password hashing functionality (DLL library)
@@ -154,4 +154,4 @@ You can also test the password hashing functionality and CAPTCHA verification di
 ## Contributors
 - Ayush Chaudhary: Primary developer
 - Bryan Ambrose: Contributed to ZipcodeVerifierService and AgeVerificationService
-- Nilesh Kumar: Contributed to TaxCalculatorService and LastViewedProductService
+- Nilay Kumar: Contributed to TaxCalculatorService and LastViewedProductService

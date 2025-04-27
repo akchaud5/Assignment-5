@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
+using System.Web;
+using System.Web.Script.Serialization;
 
 namespace OnlineStoreApp.Services
 {
@@ -9,12 +11,16 @@ namespace OnlineStoreApp.Services
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class LastViewedProductService
     {
-        // Dictionary to store last viewed products by user
-        private static Dictionary<string, List<ProductInfo>> userViewHistory = new Dictionary<string, List<ProductInfo>>();
+        // Cookie name constant
+        private const string COOKIE_NAME_PREFIX = "LastViewedProducts_";
+        private const int COOKIE_EXPIRY_DAYS = 30;
         
         [OperationContract]
         public void RecordProductView(string username, int productId, string productName)
         {
+            if (string.IsNullOrEmpty(username) || HttpContext.Current == null)
+                return;
+                
             // Create a timestamp for the view
             DateTime viewTime = DateTime.Now;
             
@@ -26,29 +32,42 @@ namespace OnlineStoreApp.Services
                 ViewTime = viewTime
             };
             
-            // If user doesn't exist in dictionary, add them
-            if (!userViewHistory.ContainsKey(username))
-            {
-                userViewHistory[username] = new List<ProductInfo>();
-            }
+            // Get existing product history from cookie
+            List<ProductInfo> productHistory = GetProductHistoryFromCookie(username);
             
-            // Add the product to the user's history
-            userViewHistory[username].Insert(0, productInfo);
+            // Add the product to the beginning of the history
+            productHistory.Insert(0, productInfo);
             
             // Keep only the last 10 viewed products
-            if (userViewHistory[username].Count > 10)
+            if (productHistory.Count > 10)
             {
-                userViewHistory[username].RemoveAt(userViewHistory[username].Count - 1);
+                productHistory.RemoveAt(productHistory.Count - 1);
             }
+            
+            // Save updated history back to cookie
+            SaveProductHistoryToCookie(username, productHistory);
         }
         
         [OperationContract]
         public ProductInfo GetLastViewedProduct(string username)
         {
-            // Check if the user exists and has view history
-            if (userViewHistory.ContainsKey(username) && userViewHistory[username].Count > 0)
+            if (string.IsNullOrEmpty(username) || HttpContext.Current == null)
             {
-                return userViewHistory[username][0];
+                return new ProductInfo
+                {
+                    ProductId = -1,
+                    ProductName = "No products viewed",
+                    ViewTime = DateTime.MinValue
+                };
+            }
+            
+            // Get product history from cookie
+            List<ProductInfo> productHistory = GetProductHistoryFromCookie(username);
+            
+            // Check if there is any history
+            if (productHistory.Count > 0)
+            {
+                return productHistory[0];
             }
             
             // Return empty product info if no history exists
@@ -63,25 +82,80 @@ namespace OnlineStoreApp.Services
         [OperationContract]
         public List<ProductInfo> GetRecentlyViewedProducts(string username, int count)
         {
+            if (string.IsNullOrEmpty(username) || HttpContext.Current == null)
+                return new List<ProductInfo>();
+                
             // Limit the count to avoid excessive data
             int maxCount = Math.Min(count, 10);
             
-            // Check if the user exists
-            if (userViewHistory.ContainsKey(username))
+            // Get product history from cookie
+            List<ProductInfo> productHistory = GetProductHistoryFromCookie(username);
+            
+            // Return the requested number of recent products
+            if (productHistory.Count <= maxCount)
             {
-                // Return the requested number of recent products
-                if (userViewHistory[username].Count <= maxCount)
+                return productHistory;
+            }
+            else
+            {
+                return productHistory.GetRange(0, maxCount);
+            }
+        }
+        
+        // Helper method to get product history from cookie
+        private List<ProductInfo> GetProductHistoryFromCookie(string username)
+        {
+            List<ProductInfo> productHistory = new List<ProductInfo>();
+            
+            try
+            {
+                // Get the cookie with the user's product history
+                HttpCookie cookie = HttpContext.Current.Request.Cookies[COOKIE_NAME_PREFIX + username];
+                
+                if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
                 {
-                    return userViewHistory[username];
-                }
-                else
-                {
-                    return userViewHistory[username].GetRange(0, maxCount);
+                    // Deserialize the cookie value to product history
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    productHistory = serializer.Deserialize<List<ProductInfo>>(cookie.Value);
                 }
             }
+            catch (Exception ex)
+            {
+                // Log the error but return an empty list
+                System.Diagnostics.Debug.WriteLine("Error getting product history from cookie: " + ex.Message);
+            }
             
-            // Return empty list if no history exists
-            return new List<ProductInfo>();
+            return productHistory;
+        }
+        
+        // Helper method to save product history to cookie
+        private void SaveProductHistoryToCookie(string username, List<ProductInfo> productHistory)
+        {
+            try
+            {
+                // Serialize the product history to JSON
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                string historyJson = serializer.Serialize(productHistory);
+                
+                // Create a new cookie or get the existing one
+                HttpCookie cookie = HttpContext.Current.Request.Cookies[COOKIE_NAME_PREFIX + username];
+                if (cookie == null)
+                {
+                    cookie = new HttpCookie(COOKIE_NAME_PREFIX + username);
+                }
+                
+                // Set the cookie value and expiration
+                cookie.Value = historyJson;
+                cookie.Expires = DateTime.Now.AddDays(COOKIE_EXPIRY_DAYS);
+                
+                // Add the cookie to the response
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                System.Diagnostics.Debug.WriteLine("Error saving product history to cookie: " + ex.Message);
+            }
         }
     }
     

@@ -95,7 +95,7 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Nilesh Kumar</td>
+                    <td>Nilay Kumar</td>
                     <td>WSDL Service</td>
                     <td>TaxCalculatorService</td>
                     <td>price (decimal), stateCode (string)</td>
@@ -113,12 +113,12 @@
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
-                    <td>Nilesh Kumar</td>
+                    <td>Nilay Kumar</td>
                     <td>WSDL Service</td>
                     <td>LastViewedProductService</td>
                     <td>username (string), productId (int), count (int)</td>
                     <td>ProductInfo, List</td>
-                    <td>Tracks and retrieves recently viewed products</td>
+                    <td>Tracks and retrieves recently viewed products using cookies</td>
                     <td><a href="TryIt.aspx" class="btn">Try It</a></td>
                 </tr>
                 <tr>
