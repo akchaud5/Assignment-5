@@ -39,13 +39,13 @@ namespace OnlineStoreApp
                 {
                     bool isValid = VerifyZipcode(zipcode);
                     lblZipcodeResult.Text = isValid ? 
-                        $"The zipcode '{zipcode}' is valid." : 
-                        $"The zipcode '{zipcode}' is invalid. Format should be 5 digits or 5 digits-4 digits.";
+                        string.Format("The zipcode '{0}' is valid.", zipcode) : 
+                        string.Format("The zipcode '{0}' is invalid. Format should be 5 digits or 5 digits-4 digits.", zipcode);
                 }
                 else
                 {
                     string stateRegion = GetZipcodeState(zipcode);
-                    lblZipcodeResult.Text = $"Zipcode '{zipcode}' is in: {stateRegion}";
+                    lblZipcodeResult.Text = string.Format("Zipcode '{0}' is in: {1}", zipcode, stateRegion);
                 }
             }
             catch (Exception ex)
@@ -69,12 +69,12 @@ namespace OnlineStoreApp
                     if (string.IsNullOrEmpty(stateCode))
                     {
                         result = CalculateTax(price);
-                        lblTaxResult.Text = $"Tax on ${price:0.00} at default rate (7%): ${result:0.00}";
+                        lblTaxResult.Text = string.Format("Tax on ${0:0.00} at default rate (7%): ${1:0.00}", price, result);
                     }
                     else
                     {
                         result = CalculateTaxByState(price, stateCode);
-                        lblTaxResult.Text = $"Tax on ${price:0.00} in {stateCode}: ${result:0.00}";
+                        lblTaxResult.Text = string.Format("Tax on ${0:0.00} in {1}: ${2:0.00}", price, stateCode, result);
                     }
                 }
                 else
@@ -82,12 +82,12 @@ namespace OnlineStoreApp
                     if (string.IsNullOrEmpty(stateCode))
                     {
                         result = CalculateTotalWithTax(price);
-                        lblTaxResult.Text = $"Total with tax for ${price:0.00} at default rate (7%): ${result:0.00}";
+                        lblTaxResult.Text = string.Format("Total with tax for ${0:0.00} at default rate (7%): ${1:0.00}", price, result);
                     }
                     else
                     {
                         result = CalculateTotalWithTaxByState(price, stateCode);
-                        lblTaxResult.Text = $"Total with tax for ${price:0.00} in {stateCode}: ${result:0.00}";
+                        lblTaxResult.Text = string.Format("Total with tax for ${0:0.00} in {1}: ${2:0.00}", price, stateCode, result);
                     }
                 }
             }
@@ -125,7 +125,7 @@ namespace OnlineStoreApp
                     }
                     else
                     {
-                        lblAgeResult.Text = $"You will be an adult in {yearsUntil} year{(yearsUntil == 1 ? "" : "s")}.";
+                        lblAgeResult.Text = string.Format("You will be an adult in {0} year{1}.", yearsUntil, (yearsUntil == 1 ? "" : "s"));
                     }
                 }
             }
@@ -163,7 +163,7 @@ namespace OnlineStoreApp
                         }
                         else
                         {
-                            lblProductResult.Text = $"Last viewed product: {product.ProductName} (ID: {product.ProductId}), viewed at {product.ViewTime}";
+                            lblProductResult.Text = string.Format("Last viewed product: {0} (ID: {1}), viewed at {2}", product.ProductName, product.ProductId, product.ViewTime);
                         }
                         break;
                         
@@ -173,7 +173,7 @@ namespace OnlineStoreApp
                         string productName = txtProductName.Text.Trim();
                         
                         RecordProductView(username, productId, productName);
-                        lblProductResult.Text = $"Product view recorded: {productName} (ID: {productId})";
+                        lblProductResult.Text = string.Format("Product view recorded: {0} (ID: {1})", productName, productId);
                         break;
                         
                     case "recent":
@@ -187,10 +187,10 @@ namespace OnlineStoreApp
                         }
                         else
                         {
-                            lblProductResult.Text = $"Recently viewed products for {username}: <br/>";
+                            lblProductResult.Text = string.Format("Recently viewed products for {0}: <br/>", username);
                             for (int i = 0; i < products.Count; i++)
                             {
-                                lblProductResult.Text += $"{i+1}. {products[i].ProductName} (ID: {products[i].ProductId}), viewed at {products[i].ViewTime}<br/>";
+                                lblProductResult.Text += string.Format("{0}. {1} (ID: {2}), viewed at {3}<br/>", i+1, products[i].ProductName, products[i].ProductId, products[i].ViewTime);
                             }
                         }
                         break;
@@ -411,7 +411,7 @@ namespace OnlineStoreApp
             }
             else if (age < ADULT_AGE)
             {
-                return $"Age verification failed. Must be at least {ADULT_AGE} years old.";
+                return string.Format("Age verification failed. Must be at least {0} years old.", ADULT_AGE);
             }
             else
             {

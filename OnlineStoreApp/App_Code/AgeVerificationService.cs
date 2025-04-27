@@ -55,7 +55,7 @@ namespace OnlineStoreApp.Services
             }
             else if (age < ADULT_AGE)
             {
-                return $"Age verification failed. Must be at least {ADULT_AGE} years old.";
+                return string.Format("Age verification failed. Must be at least {0} years old.", ADULT_AGE);
             }
             else
             {
