@@ -18,12 +18,18 @@ This is a simple e-commerce platform demonstrating various ASP.NET Web Forms fea
 - XML-based user data storage
 - Cookie-based role management
 
-### Web Services
-- **DiscountService** (WCF): Calculates discounts based on order quantity and price
-- **ZipcodeVerifierService** (WCF): Validates US zipcode format and identifies state region
-- **TaxCalculatorService** (WCF): Calculates sales tax at default rate (7%) or by state
-- **AgeVerificationService** (WCF): Verifies if a user is an adult (18+) or calculates years until adulthood
-- **LastViewedProductService** (Cookie-based): Tracks and retrieves recently viewed products using browser cookies
+### Services
+
+#### WCF Services
+- **DiscountService**: Calculates discounts based on order quantity and price
+- **ZipcodeVerifierService**: Validates US zipcode format and identifies state region
+- **AgeVerificationService**: Verifies if a user is an adult (18+) or calculates years until adulthood
+
+#### DLL Service
+- **TaxCalculatorService**: Calculates sales tax at default rate (7%) or by state
+
+#### Cookie-based Service
+- **LastViewedProductService**: Tracks and retrieves recently viewed products using browser cookies
 
 ### Member Features
 - Shopping cart functionality
@@ -81,12 +87,13 @@ If you have Visual Studio installed on a Windows machine:
 ### Web Services (WCF)
 - **DiscountService.svc**: Calculates discount based on quantity and price
 - **ZipcodeVerifierService.svc**: Validates zipcode format and identifies state region
-- **TaxCalculatorService.svc**: Calculates sales tax at default or state-specific rates
+- **TaxCalculatorService.dll**: Calculates sales tax at default or state-specific rates
 - **AgeVerificationService.svc**: Verifies adult status and calculates years until adulthood
 - **LastViewedProductService.svc**: Cookie-based service that tracks and retrieves product viewing history
 
 ### Core Components
 - **SecurityLib/PasswordHasher.cs**: Password hashing functionality (DLL library)
+- **TaxCalculator.dll**: Tax calculation functionality
 - **Controls/CaptchaControl.ascx**: CAPTCHA validation control (User control)
 - **Global.asax**: Application and session event handlers, error logging
 - **Cookies**: User role tracking and authentication state

@@ -96,7 +96,7 @@
                 </tr>
                 <tr>
                     <td>Nilay Kumar</td>
-                    <td>WSDL Service</td>
+                    <td>DLL Function</td>
                     <td>TaxCalculatorService</td>
                     <td>price (decimal), stateCode (string)</td>
                     <td>decimal</td>

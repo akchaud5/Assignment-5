@@ -20,7 +20,7 @@
 |---------------------------|----------------|------------------|----------------------------------------------|-------------|
 | DiscountService           | WCF Service    | Ayush Chaudhary  | Calculates discounts based on order quantity and price | TryIt.aspx |
 | ZipcodeVerifierService    | WCF Service    | Bryan Ambrose    | Validates US zipcode format and identifies state region | TryIt.aspx |
-| TaxCalculatorService      | WCF Service    | Nilay Kumar      | Calculates sales tax at default (7%) or state rates | TryIt.aspx |
+| TaxCalculatorService      | DLL Function   | Nilay Kumar      | Calculates sales tax at default (7%) or state rates | TryIt.aspx |
 | AgeVerificationService    | WCF Service    | Bryan Ambrose    | Verifies if a user is an adult (18+) | TryIt.aspx |
 | LastViewedProductService  | Cookie-based Service | Nilay Kumar      | Tracks and retrieves recently viewed products using cookies | TryIt.aspx |
 | PasswordHasher            | DLL Library    | Ayush Chaudhary  | Securely hashes passwords with SHA-256 | TryIt.aspx |
@@ -58,10 +58,11 @@ Each service is implemented using WCF (Windows Communication Foundation) with pr
    - Validates US postal code format (5 digits or 5+4)
    - Returns region/state information based on first digit
 
-3. **TaxCalculatorService**:
+3. **TaxCalculatorService** (DLL):
    - Methods: `CalculateTax(price)`, `CalculateTaxByState(price, stateCode)`
    - Calculates sales tax at default rate (7%) or by state-specific rates
    - Includes all 50 US states with accurate tax rates
+   - Implemented as a compiled DLL for improved performance
 
 4. **AgeVerificationService**:
    - Methods: `VerifyAdult(age)`, `GetYearsUntilAdult(currentAge)`
